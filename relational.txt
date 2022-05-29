@@ -1,0 +1,207 @@
+create table employee(e_id int primary key,ename varchar(10) not null,city varchar(10),mno int(10),salary int(100));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> insert into employee(e_id,ename,city,mno,salary) values(1,'AAA','pune',5555,100000),(2,'BBB','mumbai',4444,20000),(3,'CCC','chennai',6666,30000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values(4,'DDD','UK',1111,40000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(5,'EEE','nagar',2222,50000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++------+-------+---------+------+--------+
+| e_id | ename | city    | mno  | salary |
++------+-------+---------+------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |
+|    3 | CCC   | chennai | 6666 |  30000 |
+|    4 | DDD   | UK      | 1111 |  40000 |
+|    5 | EEE   | nagar   | 2222 |  50000 |
++------+-------+---------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where salary=10000;
+Empty set (0.06 sec)
+
+mysql> select * from employee where salary=20000;
++------+-------+--------+------+--------+
+| e_id | ename | city   | mno  | salary |
++------+-------+--------+------+--------+
+|    2 | BBB   | mumbai | 4444 |  20000 |
++------+-------+--------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary>10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select * from employee where salary > 20000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select * from employee where salary > 20000;
++------+-------+---------+------+--------+
+| e_id | ename | city    | mno  | salary |
++------+-------+---------+------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 |
+|    3 | CCC   | chennai | 6666 |  30000 |
+|    4 | DDD   | UK      | 1111 |  40000 |
+|    5 | EEE   | nagar   | 2222 |  50000 |
++------+-------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where salary < 50000;
++------+-------+---------+------+--------+
+| e_id | ename | city    | mno  | salary |
++------+-------+---------+------+--------+
+|    2 | BBB   | mumbai  | 4444 |  20000 |
+|    3 | CCC   | chennai | 6666 |  30000 |
+|    4 | DDD   | UK      | 1111 |  40000 |
++------+-------+---------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where salary >= 20000;
++------+-------+---------+------+--------+
+| e_id | ename | city    | mno  | salary |
++------+-------+---------+------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |
+|    3 | CCC   | chennai | 6666 |  30000 |
+|    4 | DDD   | UK      | 1111 |  40000 |
+|    5 | EEE   | nagar   | 2222 |  50000 |
++------+-------+---------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where salary <=20000;
++------+-------+--------+------+--------+
+| e_id | ename | city   | mno  | salary |
++------+-------+--------+------+--------+
+|    2 | BBB   | mumbai | 4444 |  20000 |
++------+-------+--------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary = 50000;
++------+-------+-------+------+--------+
+| e_id | ename | city  | mno  | salary |
++------+-------+-------+------+--------+
+|    5 | EEE   | nagar | 2222 |  50000 |
++------+-------+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary<>50000;
++------+-------+---------+------+--------+
+| e_id | ename | city    | mno  | salary |
++------+-------+---------+------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |
+|    3 | CCC   | chennai | 6666 |  30000 |
+|    4 | DDD   | UK      | 1111 |  40000 |
++------+-------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * ename,city mno where city='pune'AND ename='AAA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ename,city mno where city='pune'AND ename='AAA'' at line 1
+mysql> select * employee where city='pune'AND ename='AAA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee where city='pune'AND ename='AAA'' at line 1
+mysql> select * from employee where e_id=2 AND ename='BBB';
++------+-------+--------+------+--------+
+| e_id | ename | city   | mno  | salary |
++------+-------+--------+------+--------+
+|    2 | BBB   | mumbai | 4444 |  20000 |
++------+-------+--------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where ename='AAA' AND salary=100000;
++------+-------+------+------+--------+
+| e_id | ename | city | mno  | salary |
++------+-------+------+------+--------+
+|    1 | AAA   | pune | 5555 | 100000 |
++------+-------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where ename='AAA' OR salary=100000;
++------+-------+------+------+--------+
+| e_id | ename | city | mno  | salary |
++------+-------+------+------+--------+
+|    1 | AAA   | pune | 5555 | 100000 |
++------+-------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where ename='AAA' OR salary=10000;
++------+-------+------+------+--------+
+| e_id | ename | city | mno  | salary |
++------+-------+------+------+--------+
+|    1 | AAA   | pune | 5555 | 100000 |
++------+-------+------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where ename='AAA' NOT salary=10000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary=10000' at line 1
+mysql> select * from employee where ename='FFF' NOT salary=10000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary=10000' at line 1
+mysql> select * from employee where ename='FFF' NOT salary=100000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary=100000' at line 1
+mysql> select * from employee where NOT salary=107000;
++------+-------+---------+------+--------+
+| e_id | ename | city    | mno  | salary |
++------+-------+---------+------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |
+|    3 | CCC   | chennai | 6666 |  30000 |
+|    4 | DDD   | UK      | 1111 |  40000 |
+|    5 | EEE   | nagar   | 2222 |  50000 |
++------+-------+---------+------+--------+
+5 rows in set (0.06 sec)
+
+mysql> alter table employee add column p_name varchar(10);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update employee set p_name = 'aaa' where e_id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+-------+---------+------+--------+--------+
+| e_id | ename | city    | mno  | salary | p_name |
++------+-------+---------+------+--------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 | aaa    |
+|    2 | BBB   | mumbai  | 4444 |  20000 | NULL   |
+|    3 | CCC   | chennai | 6666 |  30000 | NULL   |
+|    4 | DDD   | UK      | 1111 |  40000 | NULL   |
+|    5 | EEE   | nagar   | 2222 |  50000 | NULL   |
++------+-------+---------+------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

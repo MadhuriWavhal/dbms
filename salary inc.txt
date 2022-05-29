@@ -1,0 +1,55 @@
+mysql> use employee11;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_employee11 |
++----------------------+
+| emp                  |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++------+--------+--------+
+| eid  | ename  | salary |
++------+--------+--------+
+|  101 | rashmi |  75000 |
+|  102 | sakshi |  80000 |
+|  103 | sakshe |  50000 |
+|  104 | saki   |  49000 |
+|  105 | raki   |  20000 |
+|  106 | maki   |  10000 |
++------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create table inc_sal(e_id int,sal int);
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> delimiter //
+mysql>  create procedure incre_emp salary()
+    -> begin
+    -> declare id int;
+    ->  declare name varchar(25);
+    -> declare salary int;
+    -> declare exit_loop boolean;
+    -> declare e_cursor cursor for select eid,ename,salary from emp;
+    -> declare continue handler for not found set exit_loop=TRUE;
+    -> open e_cursor;
+    -> emp_loop:LOOP
+    ->  FETCH e_cursor into id,name,salary;
+    -> if(salary>=75000)then
+    ->  set salary=salary+5000;
+    -> elseif(salary<75000 && salary>=25000) then
+    -> set salary=salary=3000;
+    ->  else
+    ->   set salary=salary=1500;
+    -> end if;
+    ->  if exit_loop then
+    -> close e_cursor;
+    -> leave emp_loop;
+    ->   else
+    -> insert into inc_sal set e_id=id,sal=salary;
+    ->  end if;
+    ->  end loop emp_loop;
+    -> end
+    -> //

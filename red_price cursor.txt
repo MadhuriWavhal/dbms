@@ -1,0 +1,102 @@
+
+mysql> create table book;
+ERROR 1046 (3D000): No database selected
+mysql> create database book;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> create table book(name varchar(10),edition int(10),ISBN int ,price int(10));
+ERROR 1046 (3D000): No database selected
+mysql> use
+ERROR:
+USE must be followed by a database name
+mysql> use book;
+Database changed
+mysql> create table book(name varchar(10),edition int(10),ISBN int ,price int(10));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> insert into book(name,edition,ISBN,price) values('dbms',1,100,1000),('cg',2,200,2000),('math',1,200,3000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++------+---------+------+-------+
+| name | edition | ISBN | price |
++------+---------+------+-------+
+| dbms |       1 |  100 |  1000 |
+| cg   |       2 |  200 |  2000 |
+| math |       1 |  200 |  3000 |
++------+---------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table red_price(title vaechar(10),ISBN INT,price int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vaechar(10),ISBN INT,price int)' at line 1
+mysql> create table red_price(title varchar(10),ISBN INT,price int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into red_price values('dbms',1,1000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into red_price values('cg',2,2000);
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> insert into red_price values('math',1,3000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from red_price;
++-------+------+-------+
+| title | ISBN | price |
++-------+------+-------+
+| dbms  |    1 |  1000 |
+| cg    |    2 |  2000 |
+| math  |    1 |  3000 |
++-------+------+-------+
+3 rows in set (0.00 sec)
+mysql> delimiter //
+mysql> create procedure red_book_price()
+    ->  begin
+    -> declare name varchar(10);
+    -> declare ISBN int;
+    -> declare edition int;
+    ->  declare price int;
+    -> declare exit_loop boolean;
+    ->  declare e_cursor cursor for select name,edition,ISBN,price from book;
+    ->  declare continue handler for not found set exit_loop=TRUE;
+    ->  open e_cursor;
+    ->  book_loop:LOOP
+    -> FETCH e_cursor into name,ISBN,edition,price;
+    -> if(edition=1)then set price=price+50;
+    ->  else
+    -> set price=price;
+    -> end if;
+    ->  if exit_loop then
+    -> close e_cursor;
+    -> leave book_loop;
+    -> else
+    -> insert into red_price values(title,ISBN,price);
+    ->  end if;
+    -> end loop book_loop;
+    -> end //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call red_book_price();
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from red_book_price;
+    -> //
+ERROR 1146 (42S02): Table 'book.red_book_price' doesn't exist
+mysql> select * from red_price;
+    -> //
++-------+------+-------+
+| title | ISBN | price |
++-------+------+-------+
+| dbms  |    1 |  1000 |
+| cg    |    2 |  2000 |
+| math  |    1 |  3000 |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
++-------+------+-------+
+6 rows in set (0.00 sec)
+

@@ -1,0 +1,125 @@
+mysql> use employee;
+Database changed
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 'employee.employee' doesn't exist
+mysql> select * from emp;
++-----+---------+--------+
+| eid | ename   | sal    |
++-----+---------+--------+
+|   1 | madhuri | 100000 |
+|   2 | isha    |  75000 |
+|   3 | sakshi  |  51000 |
+|   4 | nisha   |  50000 |
+|   5 | vina    |  25000 |
+|   6 | amisha  |  80000 |
+|   7 | ruchita |  60000 |
++-----+---------+--------+
+7 rows in set (0.01 sec)
+
+mysql> create table department(eid int,ename varchar(10),sal int);
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> insert into department(eid,ename,sal) values(8,'rita',1000),(9,'meeta',2000),(10,'monika',3000),(11,'vaibhavi',4000);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp UNION select * from department;
++------+----------+--------+
+| eid  | ename    | sal    |
++------+----------+--------+
+|    1 | madhuri  | 100000 |
+|    2 | isha     |  75000 |
+|    3 | sakshi   |  51000 |
+|    4 | nisha    |  50000 |
+|    5 | vina     |  25000 |
+|    6 | amisha   |  80000 |
+|    7 | ruchita  |  60000 |
+|    8 | rita     |   1000 |
+|    9 | meeta    |   2000 |
+|   10 | monika   |   3000 |
+|   11 | vaibhavi |   4000 |
++------+----------+--------+
+11 rows in set (0.01 sec)
+
+mysql> select * from emp UNION ALL select * from department;
++------+----------+--------+
+| eid  | ename    | sal    |
++------+----------+--------+
+|    1 | madhuri  | 100000 |
+|    2 | isha     |  75000 |
+|    3 | sakshi   |  51000 |
+|    4 | nisha    |  50000 |
+|    5 | vina     |  25000 |
+|    6 | amisha   |  80000 |
+|    7 | ruchita  |  60000 |
+|    8 | rita     |   1000 |
+|    9 | meeta    |   2000 |
+|   10 | monika   |   3000 |
+|   11 | vaibhavi |   4000 |
++------+----------+--------
+11 rows in set (0.00 sec)
+mysql> select * from department;
++------+--------+-------+------------+--------+---------+--------+
+| d_id | d_name | floor | HOD        | staff  | college | stdfee |
++------+--------+-------+------------+--------+---------+--------+
+|    1 | IT     |     5 | sweta kale | NULL   | NULL    |  50000 |
+|    2 | CS     |     4 | vina       | NULL   | NULL    |  60000 |
+|    3 | ENTC   |     6 | rima       | NULL   | NULL    |  60000 |
+|    4 | MEC    |     1 | sita       | NULL   | NULL    |  65000 |
+|    5 | CIVIL  |     2 | reena      | NULL   | NULL    |  65000 |
+|    6 | AAA    |     8 | ish        | jaitee | NULL    |  70000 |
++------+--------+-------+------------+--------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create table faculty(f_id int,f_depart varchar(10),floor int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into faculty values(1,'IT',5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into faculty values(2,'CS',4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into faculty values(3,'ENTC',6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from faculty;
++------+----------+-------+
+| f_id | f_depart | floor |
++------+----------+-------+
+|    1 | IT       |     5 |
+|    2 | CS       |     4 |
+|    3 | ENTC     |     6 |
++------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select d_id,d_name,floor from department INNER JOIN faculty;
+ERROR 1052 (23000): Column 'floor' in field list is ambiguous
+mysql> select d_id,d_name from department INNER JOIN faculty ON d_id=f_id;
++------+--------+
+| d_id | d_name |
++------+--------+
+|    1 | IT     |
+|    2 | CS     |
+|    3 | ENTC   |
++------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select d_id,d_name,floor from department LEFT OUTER JOIN faculty ON d_id=f_id;
+ERROR 1052 (23000): Column 'floor' in field list is ambiguous
+mysql> select d_id,d_name, from department LEFT OUTER JOIN faculty ON d_id=f_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from department LEFT OUTER JOIN faculty ON d_id=f_id' at line 1
+mysql> select d_id,d_name,from department LEFT OUTER JOIN faculty ON d_id=f_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from department LEFT OUTER JOIN faculty ON d_id=f_id' at line 1
+mysql> select d_id,d_name from department LEFT OUTER JOIN faculty ON d_id=f_id;
++------+--------+
+| d_id | d_name |
++------+--------+
+|    1 | IT     |
+|    2 | CS     |
+|    3 | ENTC   |
+|    4 | MEC    |
+|    5 | CIVIL  |
+|    6 | AAA    |
++------+--------+
+6 rows in set (0.00 sec)

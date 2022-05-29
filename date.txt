@@ -1,0 +1,148 @@
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-05-28 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select date(now());
++-------------+
+| date(now()) |
++-------------+
+| 2022-05-28  |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2022-05-28 23:00:43 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select DAYNAME('2022-03-01');
++-----------------------+
+| DAYNAME('2022-03-01') |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DAYOFMONTH('2023-08-28');
++--------------------------+
+| DAYOFMONTH('2023-08-28') |
++--------------------------+
+|                       28 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2023-11-20');
++-----------------------+
+| DAYNAME('2023-11-20') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_DATE();
++----------------+
+| CURRENT_DATE() |
++----------------+
+| 2022-05-28     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY OF MONTH('2022-03-23');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OF MONTH('2022-03-23')' at line 1
+mysql> SELECT DAY OF MONTH();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OF MONTH()' at line 1
+mysql> select DAYOFMONTH();
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'DAYOFMONTH'
+mysql> select DAYOFMONTH(2023-02-23');
+    '> select DAYOFMONTH('2023-02-23');
+    '> ^C
+mysql> select DAYOFMONTH('2023-02-23');
++--------------------------+
+| DAYOFMONTH('2023-02-23') |
++--------------------------+
+|                       23 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select DAYOFWEEK('2022-03-02');
++-------------------------+
+| DAYOFWEEK('2022-03-02') |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY('2022-03-02');
++-------------------+
+| DAY('2022-03-02') |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2022-02-03');
++-------------------------+
+| DAYOFYEAR('2022-02-03') |
++-------------------------+
+|                      34 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+mysql> select DAYOFWEEK('2022-03-02');
++-------------------------+
+| DAYOFWEEK('2022-03-02') |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY('2022-03-02');
++-------------------+
+| DAY('2022-03-02') |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2022-02-03');
++-------------------------+
+| DAYOFYEAR('2022-02-03') |
++-------------------------+
+|                      34 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%m/%d/%d');
++-----------------------------------+
+| date_format(curdate(),'%m/%d/%d') |
++-----------------------------------+
+| 05/28/28                          |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%y:%m:%d');
++-----------------------------------+
+| date_format(curdate(),'%y:%m:%d') |
++-----------------------------------+
+| 22:05:28                          |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+

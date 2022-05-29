@@ -1,0 +1,734 @@
+mysql> select * from department_info;
++------+--------+-------+------------+--------+
+| d_id | d_name | floor | HOD        | staff  |
++------+--------+-------+------------+--------+
+|    1 | IT     |     5 | sweta kale | NULL   |
+|    2 | CS     |     4 | vina       | NULL   |
+|    3 | ENTC   |     6 | rima       | NULL   |
+|    4 | MEC    |     1 | sita       | NULL   |
+|    5 | CIVIL  |     2 | reena      | NULL   |
+|    6 | AAA    |     8 | ish        | jaitee |
++------+--------+-------+------------+--------+
+6 rows in set (0.01 sec)
+
+mysql> alter table department_info rename department depart;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'depart' at line 1
+mysql> alter table department_info rename department;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> alter table department drop primary key;
+Query OK, 6 rows affected (0.07 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add primary key(d_id);
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++------+--------+-------+------------+--------+
+| d_id | d_name | floor | HOD        | staff  |
++------+--------+-------+------------+--------+
+|    1 | IT     |     5 | sweta kale | NULL   |
+|    2 | CS     |     4 | vina       | NULL   |
+|    3 | ENTC   |     6 | rima       | NULL   |
+|    4 | MEC    |     1 | sita       | NULL   |
+|    5 | CIVIL  |     2 | reena      | NULL   |
+|    6 | AAA    |     8 | ish        | jaitee |
++------+--------+-------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> desc department;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| d_id   | int         | NO   | PRI | NULL    |       |
+| d_name | varchar(10) | YES  |     | NULL    |       |
+| floor  | float       | YES  |     | NULL    |       |
+| HOD    | varchar(10) | NO   |     | NULL    |       |
+| staff  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select HOD from department;
++------------+
+| HOD        |
++------------+
+| sweta kale |
+| vina       |
+| rima       |
+| sita       |
+| reena      |
+| ish        |
++------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table department add college varchar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table department add college varchar(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++------+--------+-------+------------+--------+---------+
+| d_id | d_name | floor | HOD        | staff  | college |
++------+--------+-------+------------+--------+---------+
+|    1 | IT     |     5 | sweta kale | NULL   | NULL    |
+|    2 | CS     |     4 | vina       | NULL   | NULL    |
+|    3 | ENTC   |     6 | rima       | NULL   | NULL    |
+|    4 | MEC    |     1 | sita       | NULL   | NULL    |
+|    5 | CIVIL  |     2 | reena      | NULL   | NULL    |
+|    6 | AAA    |     8 | ish        | jaitee | NULL    |
++------+--------+-------+------------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> alter table department add college=sinhgad where d_name=IT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=sinhgad where d_name=IT' at line 1
+mysql> alter table department add college='sinhgad' where d_name=IT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='sinhgad' where d_name=IT' at line 1
+mysql> alter table department add college='sinhgad' where d_name=IT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='sinhgad' where d_name=IT' at line 1
+mysql> alter table department drop column college;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add column college varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into department college='sinhgad' where d_id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'college='sinhgad' where d_id=1' at line 1
+mysql> alter table department add constraint MyUniqueConstraint UNIQUE(college);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+
+
+
+
+    -> ^C
+mysql> alter table faculty RENAME COLUMN floor to d_floor;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from faculty;
++------+----------+---------+
+| f_id | f_depart | d_floor |
++------+----------+---------+
+|    1 | IT       |       5 |
+|    2 | CS       |       4 |
+|    3 | ENTC     |       6 |
+|    4 | IT       |       5 |
++------+----------+---------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select * from department_info;
++------+--------+-------+------------+--------+
+| d_id | d_name | floor | HOD        | staff  |
++------+--------+-------+------------+--------+
+|    1 | IT     |     5 | sweta kale | NULL   |
+|    2 | CS     |     4 | vina       | NULL   |
+|    3 | ENTC   |     6 | rima       | NULL   |
+|    4 | MEC    |     1 | sita       | NULL   |
+|    5 | CIVIL  |     2 | reena      | NULL   |
+|    6 | AAA    |     8 | ish        | jaitee |
++------+--------+-------+------------+--------+
+6 rows in set (0.01 sec)
+
+mysql> alter table department_info rename department depart;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'depart' at line 1
+mysql> alter table department_info rename department;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> alter table department drop primary key;
+Query OK, 6 rows affected (0.07 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add primary key(d_id);
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++------+--------+-------+------------+--------+
+| d_id | d_name | floor | HOD        | staff  |
++------+--------+-------+------------+--------+
+|    1 | IT     |     5 | sweta kale | NULL   |
+|    2 | CS     |     4 | vina       | NULL   |
+|    3 | ENTC   |     6 | rima       | NULL   |
+|    4 | MEC    |     1 | sita       | NULL   |
+|    5 | CIVIL  |     2 | reena      | NULL   |
+|    6 | AAA    |     8 | ish        | jaitee |
++------+--------+-------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> desc department;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| d_id   | int         | NO   | PRI | NULL    |       |
+| d_name | varchar(10) | YES  |     | NULL    |       |
+| floor  | float       | YES  |     | NULL    |       |
+| HOD    | varchar(10) | NO   |     | NULL    |       |
+| staff  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select HOD from department;
++------------+
+| HOD        |
++------------+
+| sweta kale |
+| vina       |
+| rima       |
+| sita       |
+| reena      |
+| ish        |
++------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table department add college varchar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table department add college varchar(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++------+--------+-------+------------+--------+---------+
+| d_id | d_name | floor | HOD        | staff  | college |
++------+--------+-------+------------+--------+---------+
+|    1 | IT     |     5 | sweta kale | NULL   | NULL    |
+|    2 | CS     |     4 | vina       | NULL   | NULL    |
+|    3 | ENTC   |     6 | rima       | NULL   | NULL    |
+|    4 | MEC    |     1 | sita       | NULL   | NULL    |
+|    5 | CIVIL  |     2 | reena      | NULL   | NULL    |
+|    6 | AAA    |     8 | ish        | jaitee | NULL    |
++------+--------+-------+------------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> alter table department add college=sinhgad where d_name=IT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=sinhgad where d_name=IT' at line 1
+mysql> alter table department add college='sinhgad' where d_name=IT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='sinhgad' where d_name=IT' at line 1
+mysql> alter table department add college='sinhgad' where d_name=IT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='sinhgad' where d_name=IT' at line 1
+mysql> alter table department drop column college;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table department add column college varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into department college='sinhgad' where d_id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'college='sinhgad' where d_id=1' at line 1
+mysql> alter table department add constraint MyUniqueConstraint UNIQUE(college);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

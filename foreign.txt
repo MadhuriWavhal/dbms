@@ -1,0 +1,81 @@
+mysql> create table emp(eid int primary key,ename varchar(10) not null,address varchar(10) not null,city varchar(10) not null,did int,constraint student_fk foreign key(did) references student(std_id));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> create table course(c_id int primary key,c_name varchar(10),c_title varchar(10),dno int,constraint student_fk foreign key(dno) references student(std_id));
+ERROR 1826 (HY000): Duplicate foreign key constraint name 'student_fk'
+mysql> create table department(d_id int primary key,dname varchar(10),floor int(10));
+Query OK, 0 rows affected, 1 warning (0.10 sec)
+
+mysql> create table faculty(f_id int,f_name varchar(10),fno int,constraint department_fk foreign key(fno) references department(d_id));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc department;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| d_id  | int         | NO   | PRI | NULL    |       |
+| dname | varchar(10) | YES  |     | NULL    |       |
+| floor | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc faculty;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| f_id   | int         | YES  |     | NULL    |       |
+| f_name | varchar(10) | YES  |     | NULL    |       |
+| fno    | int         | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

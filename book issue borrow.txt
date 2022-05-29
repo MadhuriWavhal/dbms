@@ -1,0 +1,93 @@
+mysql> create database stud;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use stud;
+Database changed
+mysql> create table student(std_name varchar(25),PRN_NO int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into student values('rima',701);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('sima',702);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('hima',703);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('reena',704);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table BorrowedBy(b_name varchar(25),PRN int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into BorrowedBy('ram',704);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''ram',704)' at line 1
+mysql> insert into BorrowedBy values('ram',704);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into BorrowedBy values('sham',703);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into BorrowedBy values('shree',702);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into BorrowedBy values('shreeansh',701);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from BorrowedBy;
++-----------+------+
+| b_name    | PRN  |
++-----------+------+
+| ram       |  704 |
+| sham      |  703 |
+| shree     |  702 |
+| shreeansh |  701 |
++-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++----------+--------+
+| std_name | PRN_NO |
++----------+--------+
+| rima     |    701 |
+| sima     |    702 |
+| hima     |    703 |
+| reena    |    704 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delimiter //
+mysql> drop procedure if exists book;
+    -> create procedure book(IN a int)
+    -> begin
+    -> select PRN_NO,count(PRN) from student,BorrowedBy where BorrowedBy.PRN=student.PRN_NO AND PRN_NO=a group by PRN;
+    -> end;
+    -> //
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call book(704)
+    -> //
++--------+------------+
+| PRN_NO | count(PRN) |
++--------+------------+
+|    704 |          1 |
++--------+------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call book(701)
+    -> //
++--------+------------+
+| PRN_NO | count(PRN) |
++--------+------------+
+|    701 |          1 |
++--------+------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>

@@ -1,0 +1,61 @@
+mysql> use book;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_book |
++----------------+
+| book           |
+| red_price      |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> use stud;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_stud |
++----------------+
+| borrowedby     |
+| student        |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++----------+--------+------+
+| std_name | PRN_NO | fine |
++----------+--------+------+
+| rima     |    701 |  100 |
+| sima     |    702 |  200 |
+| hima     |    703 |  200 |
+| reena    |    704 | NULL |
++----------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from BorrowedBy;
++-----------+------+------------+
+| b_name    | PRN  | total_fine |
++-----------+------+------------+
+| ram       |  704 |       NULL |
+| sham      |  703 |        500 |
+| shree     |  702 |        500 |
+| shreeansh |  701 |        500 |
++-----------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> delimiter //
+mysql> drop function if exists fine;
+    -> create function fine(a int)
+    -> returns int
+    -> begin
+    -> declare total_fine int;
+    -> select sum(Fine) into total_fine from student,BorrowedBy where student.PRN_NO=BorrowedBy.PRN and BorrowedBy.prn=a group by BorrowedBy.PRN;
+    -> return total_fine;
+    -> end;
+    -> //
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+ERROR 1418 (HY000): This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
+mysql> call fine()
+    -> //
+ERROR 1305 (42000): PROCEDURE stud.fine does not exist
+mysql>

@@ -1,0 +1,195 @@
+
+mysql> use company;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| employee          |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee;
++------+-------+---------+------+--------+--------+
+| e_id | ename | city    | mno  | salary | p_name |
++------+-------+---------+------+--------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 | aaa    |
+|    2 | BBB   | mumbai  | 4444 |  20000 | NULL   |
+|    3 | CCC   | chennai | 6666 |  30000 | NULL   |
+|    4 | DDD   | UK      | 1111 |  40000 | NULL   |
+|    5 | EEE   | nagar   | 2222 |  50000 | NULL   |
++------+-------+---------+------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select city from employee where city LIKE '____';
++------+
+| city |
++------+
+| pune |
++------+
+1 row in set (0.00 sec)
+
+mysql> select city from employee where city LIKE '%m';
+Empty set (0.00 sec)
+
+mysql> select city from employee where city LIKE 'm%';
++--------+
+| city   |
++--------+
+| mumbai |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select city from employee where city LIKE '%n%';
++---------+
+| city    |
++---------+
+| pune    |
+| chennai |
+| nagar   |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee;
++------+-------+---------+------+--------+--------+
+| e_id | ename | city    | mno  | salary | p_name |
++------+-------+---------+------+--------+--------+
+|    1 | AAA   | pune    | 5555 | 100000 | aaa    |
+|    2 | BBB   | mumbai  | 4444 |  20000 | NULL   |
+|    3 | CCC   | chennai | 6666 |  30000 | NULL   |
+|    4 | DDD   | UK      | 1111 |  40000 | NULL   |
+|    5 | EEE   | nagar   | 2222 |  50000 | NULL   |
++------+-------+---------+------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select e_id,ename,salary from employee where ename IN ('AAA','BBB');
++------+-------+--------+
+| e_id | ename | salary |
++------+-------+--------+
+|    1 | AAA   | 100000 |
+|    2 | BBB   |  20000 |
++------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select salary from employee where salary IN (20000,30000);
++--------+
+| salary |
++--------+
+|  20000 |
+|  30000 |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select salary from employee where salary IN (salary>20000);
+Empty set (0.00 sec)
+
+mysql> select salary from employee where salary IN (select salary>20000);
+Empty set (0.06 sec)
+
+mysql> select AVG(salary) from employee;
++-------------+
+| AVG(salary) |
++-------------+
+|  48000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(mno) from employee;
++----------+
+| MIN(mno) |
++----------+
+|     1111 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(salary) from employee;
++-------------+
+| MAX(salary) |
++-------------+
+|      100000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select SUM(salary) from employee;
++-------------+
+| SUM(salary) |
++-------------+
+|      240000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from employee where city='pune';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select e_id,ename,city ,salary,salary+1000 AS "salary+1000" from employee;
++------+-------+---------+--------+-------------+
+| e_id | ename | city    | salary | salary+1000 |
++------+-------+---------+--------+-------------+
+|    1 | AAA   | pune    | 100000 |      101000 |
+|    2 | BBB   | mumbai  |  20000 |       21000 |
+|    3 | CCC   | chennai |  30000 |       31000 |
+|    4 | DDD   | UK      |  40000 |       41000 |
+|    5 | EEE   | nagar   |  50000 |       51000 |
++------+-------+---------+--------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select e_id,ename,city,mno,salary,salary-100 AS "salary-100" from employee;
++------+-------+---------+------+--------+------------+
+| e_id | ename | city    | mno  | salary | salary-100 |
++------+-------+---------+------+--------+------------+
+|    1 | AAA   | pune    | 5555 | 100000 |      99900 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |      19900 |
+|    3 | CCC   | chennai | 6666 |  30000 |      29900 |
+|    4 | DDD   | UK      | 1111 |  40000 |      39900 |
+|    5 | EEE   | nagar   | 2222 |  50000 |      49900 |
++------+-------+---------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select e_id,ename,city,mno,salary,salary*100 AS "salary*100" from employee;
++------+-------+---------+------+--------+------------+
+| e_id | ename | city    | mno  | salary | salary*100 |
++------+-------+---------+------+--------+------------+
+|    1 | AAA   | pune    | 5555 | 100000 |   10000000 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |    2000000 |
+|    3 | CCC   | chennai | 6666 |  30000 |    3000000 |
+|    4 | DDD   | UK      | 1111 |  40000 |    4000000 |
+|    5 | EEE   | nagar   | 2222 |  50000 |    5000000 |
++------+-------+---------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select e_id,ename,city,mno,salary,salary/100 AS "salary/100" from employee;
++------+-------+---------+------+--------+------------+
+| e_id | ename | city    | mno  | salary | salary/100 |
++------+-------+---------+------+--------+------------+
+|    1 | AAA   | pune    | 5555 | 100000 |  1000.0000 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |   200.0000 |
+|    3 | CCC   | chennai | 6666 |  30000 |   300.0000 |
+|    4 | DDD   | UK      | 1111 |  40000 |   400.0000 |
+|    5 | EEE   | nagar   | 2222 |  50000 |   500.0000 |
++------+-------+---------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select e_id,ename,city,mno,salary,salary%100 AS "salary%100" from employee;
++------+-------+---------+------+--------+------------+
+| e_id | ename | city    | mno  | salary | salary%100 |
++------+-------+---------+------+--------+------------+
+|    1 | AAA   | pune    | 5555 | 100000 |          0 |
+|    2 | BBB   | mumbai  | 4444 |  20000 |          0 |
+|    3 | CCC   | chennai | 6666 |  30000 |          0 |
+|    4 | DDD   | UK      | 1111 |  40000 |          0 |
+|    5 | EEE   | nagar   | 2222 |  50000 |          0 |
++------+-------+---------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+

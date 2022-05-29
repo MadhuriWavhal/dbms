@@ -1,0 +1,175 @@
+mysql> select d_id,d_name from department LEFT OUTER JOIN faculty ON d_id=f_id;
++------+--------+
+| d_id | d_name |
++------+--------+
+|    1 | IT     |
+|    2 | CS     |
+|    3 | ENTC   |
+|    4 | MEC    |
+|    5 | CIVIL  |
+|    6 | AAA    |
++------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create view d1 AS select d_id,stdfee from department;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from d1;
++------+--------+
+| d_id | stdfee |
++------+--------+
+|    1 |  50000 |
+|    2 |  60000 |
+|    3 |  60000 |
+|    4 |  65000 |
+|    5 |  65000 |
+|    6 |  70000 |
++------+--------+
+6 rows in set (0.01 sec)
+
+mysql> create view d2 AS select d_id,d_name,f_id,f_depart from department,faculty;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from d2;
++------+--------+------+----------+
+| d_id | d_name | f_id | f_depart |
++------+--------+------+----------+
+|    1 | IT     |    3 | ENTC     |
+|    1 | IT     |    2 | CS       |
+|    1 | IT     |    1 | IT       |
+|    2 | CS     |    3 | ENTC     |
+|    2 | CS     |    2 | CS       |
+|    2 | CS     |    1 | IT       |
+|    3 | ENTC   |    3 | ENTC     |
+|    3 | ENTC   |    2 | CS       |
+|    3 | ENTC   |    1 | IT       |
+|    4 | MEC    |    3 | ENTC     |
+|    4 | MEC    |    2 | CS       |
+|    4 | MEC    |    1 | IT       |
+|    5 | CIVIL  |    3 | ENTC     |
+|    5 | CIVIL  |    2 | CS       |
+|    5 | CIVIL  |    1 | IT       |
+|    6 | AAA    |    3 | ENTC     |
+|    6 | AAA    |    2 | CS       |
+|    6 | AAA    |    1 | IT       |
++------+--------+------+----------+
+18 rows in set (0.00 sec)
+
+mysql> create view d3 AS select d_id,floor from department where d_name=(select f_depart from faculty);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from d3;
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> insert into faculty values(4,'IT',5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from d3;
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> alter view d2 AS select d_id,d_name,f_id where d_id=f_id;
+ERROR 1054 (42S22): Unknown column 'd_id' in 'field list'
+mysql> update d2 SET d_name='BBB' where d_id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from d2;
++------+--------+------+----------+
+| d_id | d_name | f_id | f_depart |
++------+--------+------+----------+
+|    1 | BBB    |    4 | IT       |
+|    1 | BBB    |    3 | ENTC     |
+|    1 | BBB    |    2 | CS       |
+|    1 | BBB    |    1 | IT       |
+|    2 | CS     |    4 | IT       |
+|    2 | CS     |    3 | ENTC     |
+|    2 | CS     |    2 | CS       |
+|    2 | CS     |    1 | IT       |
+|    3 | ENTC   |    4 | IT       |
+|    3 | ENTC   |    3 | ENTC     |
+|    3 | ENTC   |    2 | CS       |
+|    3 | ENTC   |    1 | IT       |
+|    4 | MEC    |    4 | IT       |
+|    4 | MEC    |    3 | ENTC     |
+|    4 | MEC    |    2 | CS       |
+|    4 | MEC    |    1 | IT       |
+|    5 | CIVIL  |    4 | IT       |
+|    5 | CIVIL  |    3 | ENTC     |
+|    5 | CIVIL  |    2 | CS       |
+|    5 | CIVIL  |    1 | IT       |
+|    6 | AAA    |    4 | IT       |
+|    6 | AAA    |    3 | ENTC     |
+|    6 | AAA    |    2 | CS       |
+|    6 | AAA    |    1 | IT       |
++------+--------+------+----------+
+24 rows in set (0.01 sec)
+
+mysql> rename table d2 to depart2;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from depart2;
++------+--------+------+----------+
+| d_id | d_name | f_id | f_depart |
++------+--------+------+----------+
+|    1 | BBB    |    4 | IT       |
+|    1 | BBB    |    3 | ENTC     |
+|    1 | BBB    |    2 | CS       |
+|    1 | BBB    |    1 | IT       |
+|    2 | CS     |    4 | IT       |
+|    2 | CS     |    3 | ENTC     |
+|    2 | CS     |    2 | CS       |
+|    2 | CS     |    1 | IT       |
+|    3 | ENTC   |    4 | IT       |
+|    3 | ENTC   |    3 | ENTC     |
+|    3 | ENTC   |    2 | CS       |
+|    3 | ENTC   |    1 | IT       |
+|    4 | MEC    |    4 | IT       |
+|    4 | MEC    |    3 | ENTC     |
+|    4 | MEC    |    2 | CS       |
+|    4 | MEC    |    1 | IT       |
+|    5 | CIVIL  |    4 | IT       |
+|    5 | CIVIL  |    3 | ENTC     |
+|    5 | CIVIL  |    2 | CS       |
+|    5 | CIVIL  |    1 | IT       |
+|    6 | AAA    |    4 | IT       |
+|    6 | AAA    |    3 | ENTC     |
+|    6 | AAA    |    2 | CS       |
+|    6 | AAA    |    1 | IT       |
++------+--------+------+----------+
+24 rows in set (0.00 sec)
+
+mysql> create view depart3 AS select d_id,d_name,from department UNION ALL select f_id,f_depart from faculty;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from department UNION ALL select f_id,f_depart from faculty' at line 1
+mysql> create view depart3 AS select d_id,d_name AS TYPE from department UNION ALL select f_id,f_depart AS TYPE from faculty;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from depart3;
++------+-------+
+| d_id | TYPE  |
++------+-------+
+|    1 | BBB   |
+|    2 | CS    |
+|    3 | ENTC  |
+|    4 | MEC   |
+|    5 | CIVIL |
+|    6 | AAA   |
+|    1 | IT    |
+|    2 | CS    |
+|    3 | ENTC  |
+|    4 | IT    |
++------+-------+
+10 rows in set (0.01 sec)
+
+mysql> drop view depart3 CASCADE;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM depart3;
+ERROR 1146 (42S02): Table 'rmd.depart3' doesn't exist
+mysql> drop view depart2 RESTRICT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from depart2;
+ERROR 1146 (42S02): Table 'rmd.depart2' doesn't exist
+mysql>
+
+
+
+

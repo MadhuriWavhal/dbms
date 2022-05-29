@@ -1,0 +1,438 @@
+12) write a trigger that will check whether the working hours of any employees
+ are less than zero if it is less than zero then working hours should be update
+ to zero.
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| employees          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| students           |
+| sys                |
+| world              |
++--------------------+
+39 rows in set (0.00 sec)
+
+mysql> create database workers;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use workers;
+Database changed
+mysql> create table works_on(name varchar(78),address varchar(68),w_no int(88),hours int(78));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc works_on;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(78) | YES  |     | NULL    |       |
+| address | varchar(68) | YES  |     | NULL    |       |
+| w_no    | int         | YES  |     | NULL    |       |
+| hours   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into works_on(name,address,w_no,hours) values('bridge','abc',22,5),('building','mno',34,1),('river','dfs',76,0),('mountain','jkh',87,2);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from works_on;
++----------+---------+------+-------+
+| name     | address | w_no | hours |
++----------+---------+------+-------+
+| bridge   | abc     |   22 |     5 |
+| building | mno     |   34 |     1 |
+| river    | dfs     |   76 |     0 |
+| mountain | jkh     |   87 |     2 |
++----------+---------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create trigger check_hours
+    -> before insert on works_on
+    -> for each row
+    -> begin
+    -> if NEW.hours<0 then set NEW.hours=0;
+    -> end if;
+    -> end;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from works_on;
+    -> //
++----------+---------+------+-------+
+| name     | address | w_no | hours |
++----------+---------+------+-------+
+| bridge   | abc     |   22 |     5 |
+| building | mno     |   34 |     1 |
+| river    | dfs     |   76 |     0 |
+| mountain | jkh     |   87 |     2 |
++----------+---------+------+-------+
+4 rows in set (0.01 sec)
+
+mysql>
+
+
+*************************************************************************************************************************************************
+13)  write a trigger to update quality of book if that book is issued to student.
+   
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+37 rows in set (0.01 sec)
+
+mysql> create database students;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use students;
+Database changed
+mysql> create table book(b_name varchar(55),borrowedBy varchar(58),quantity int(78),ISBNNO int(68));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> insert into book(b_name,borrowedBy,quantity,ISBNNO) values('lost','sakshi',3,547),('air','madhuri',2,764),('mind','ishwari',4,854),('reason','rashmi',2,754);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+------------+----------+--------+
+| b_name | borrowedBy | quantity | ISBNNO |
++--------+------------+----------+--------+
+| lost   | sakshi     |        3 |    547 |
+| air    | madhuri    |        2 |    764 |
+| mind   | ishwari    |        4 |    854 |
+| reason | rashmi     |        2 |    754 |
++--------+------------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> drop trigger if exists t2;
+    -> create trigger t2
+    -> after insert on borrowedBy
+    -> for each row
+    -> begin
+    -> update book
+    -> set quantity=quantity-1
+    -> where ISBNNO=New.ISBN;
+    -> end;
+    -> //
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+ERROR 1146 (42S02): Table 'students.borrowedby' doesn't exist
+mysql>
+
+
+
+
+*************************************************************************************************************************************************
+14) write a trigger which will restrict insertion of new employee record having salary less than Rs. 20000.
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+37 rows in set (0.01 sec)
+
+mysql> use employee;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table employees(id int(55),name varchar(66),jobname varchar(77),hiredate int(67),salary int(88),depid int(46));
+Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
+mysql> insert into employees(id,name,jobname,hiredate,salary,depid) values(65776,'sakshi','developer',2024,30000,5321),(64789,'madhuri','designer',2023,18000,56483),(67899,'ishwari','manager',2025,29000,56980),(49075,'rashmi','employee',2026,13000,65598),(98582,'mayuri','HR',35000,2022,45839);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++-------+---------+-----------+----------+--------+-------+
+| id    | name    | jobname   | hiredate | salary | depid |
++-------+---------+-----------+----------+--------+-------+
+| 65776 | sakshi  | developer |     2024 |  30000 |  5321 |
+| 64789 | madhuri | designer  |     2023 |  18000 | 56483 |
+| 67899 | ishwari | manager   |     2025 |  29000 | 56980 |
+| 49075 | rashmi  | employee  |     2026 |  13000 | 65598 |
+| 98582 | mayuri  | HR        |    35000 |   2022 | 45839 |
++-------+---------+-----------+----------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create trigger check_salary
+    -> before insert on employees
+    -> for each row
+    -> begin
+    -> if(NEW.salary<20000) then
+    -> signal sqlstate '02001' set message_text='You cannot insert salary<20000';
+    -> end if;
+    -> end;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into employees values('65776','sakshi','developer','2024','29500','5321');
+    -> //
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
+    -> //
++-------+---------+-----------+----------+--------+-------+
+| id    | name    | jobname   | hiredate | salary | depid |
++-------+---------+-----------+----------+--------+-------+
+| 65776 | sakshi  | developer |     2024 |  30000 |  5321 |
+| 64789 | madhuri | designer  |     2023 |  18000 | 56483 |
+| 67899 | ishwari | manager   |     2025 |  29000 | 56980 |
+| 49075 | rashmi  | employee  |     2026 |  13000 | 65598 |
+| 98582 | mayuri  | HR        |    35000 |   2022 | 45839 |
+| 65776 | sakshi  | developer |     2024 |  29500 |  5321 |
++-------+---------+-----------+----------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employees values('66892','priya','designer','2018','19000','8912');
+    -> //
+ERROR 1643 (02001): You cannot insert salary<20000
+mysql>
+
+*************************************************************************************************************************************************
+15)  write a cursor which will update the salary of all employees as per following conditions:
+     -if salary>=75000 then increment salary by 5000
+     -if 50000<=salary<75000 then increment salary by 3000
+     -else then increment salary by 1500
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+36 rows in set (0.01 sec)
+
+mysql> create database company3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use company3;
+Database changed
+mysql> create table emp(eid int(66),ename varchar(44),sal int(45));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> insert into emp(eid,ename,sal) values(101,'sakshi',80000),(102,'madhuri',75000),(103,'neha',85000),(104,'rashmi',60000),(105,'ishwari',70000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++------+---------+-------+
+| eid  | ename   | sal   |
++------+---------+-------+
+|  101 | sakshi  | 80000 |
+|  102 | madhuri | 75000 |
+|  103 | neha    | 85000 |
+|  104 | rashmi  | 60000 |
+|  105 | ishwari | 70000 |
++------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table inc_sal(e_id int,sal int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc inc_sal;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| e_id  | int  | YES  |     | NULL    |       |
+| sal   | int  | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create procedure inc_emp_salary()
+    -> begin
+    -> declare eid int;
+    -> declare ename varchar(44);
+    -> declare salary int;
+    -> declare exit_loop Boolean;
+    -> declare e_cursor cursor for select eid,ename,salary from emp;
+    -> declare continue handler for not found set exit_loop=True;
+    -> open e_cursor;
+    -> emp_loop:loop
+    -> fetch e_cursor into eid,ename,salary;
+    -> if (salary>=75000) then set salary=salary+5000;
+    -> elseif(salary<75000 && salary>=75000) then set salary=salary+3000;
+    -> else
+    -> set salary=salary+1500;
+    -> end if;
+    -> if exit_loop then
+    -> close e_cursor;
+    -> leave emp_loop;
+    -> else
+    -> insert into inc_sal set e_id=eid,sal=salary;
+    -> end if;
+    -> end loop emp_loop;
+    -> end
+    -> //
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> call inc_emp_salary();
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from inc_sal;
+    -> //
++------+------+
+| e_id | sal  |
++------+------+
+| NULL | NULL |
+| NULL | NULL |
+| NULL | NULL |
+| NULL | NULL |
+| NULL | NULL |
++------+------+
+5 rows in set (0.00 sec)

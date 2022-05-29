@@ -1,0 +1,1174 @@
+
+
+////*****Design and implement a database with primary key and foreign key constraints.perform
+            1)alter table with add n modify   2)drop table*****////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+29 rows in set (0.01 sec)
+
+mysql> create database school1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use school1;
+Database changed
+
+mysql> create table student(stu_id int(40) primary key,f_name varchar(55) not null,l_name varchar(33),gender varchar(33),ph_no int(10));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| stu_id | int         | NO   | PRI | NULL    |       |
+| f_name | varchar(55) | NO   |     | NULL    |       |
+| l_name | varchar(33) | YES  |     | NULL    |       |
+| gender | varchar(33) | YES  |     | NULL    |       |
+| ph_no  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+mysql> insert into student(stu_id,f_name,l_name,gender,ph_no) values(1,'sakshi','sayankar','F',65489828),(2,'Madhuri','wavhal','F',656992);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++--------+---------+----------+--------+----------+
+| stu_id | f_name  | l_name   | gender | ph_no    |
++--------+---------+----------+--------+----------+
+|      1 | sakshi  | sayankar | F      | 65489828 |
+|      2 | Madhuri | wavhal   | F      |   656992 |
++--------+---------+----------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table student modify column ph_no int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student modify column gender varchar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table student modify ph_no not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null' at line 1
+mysql> alter table student modify ph_no int not null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| stu_id | int         | NO   | PRI | NULL    |       |
+| f_name | varchar(55) | NO   |     | NULL    |       |
+| l_name | varchar(33) | YES  |     | NULL    |       |
+| gender | varchar(33) | YES  |     | NULL    |       |
+| ph_no  | int         | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+      
+
+
+*********************************************************************************************************************
+
+2) ////*****Design and implement a database with primary key and foreign key constraints.perform
+            1)alter table with add n modify   2)drop table*****////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+30 rows in set (0.00 sec)
+
+mysql> create database school2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use school2;
+Database changed
+mysql> create table student(stu_id int(40) primary key,f_name varchar(55) not null,l_name varchar(33),gender varchar(33),ph_no int(10));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| stu_id | int         | NO   | PRI | NULL    |       |
+| f_name | varchar(55) | NO   |     | NULL    |       |
+| l_name | varchar(33) | YES  |     | NULL    |       |
+| gender | varchar(33) | YES  |     | NULL    |       |
+| ph_no  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table department(d_name varchar(55),d_no int(20),d_id int(55),constraint stu_fk foreign key(d_no) references stu(stu_id));
+ERROR 1824 (HY000): Failed to open the referenced table 'stu'
+mysql> create table department(d_name varchar(55),d_no int(20),d_id int(55),constraint student_fk foreign key(d_no) references student(stu_id));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc department;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| d_name | varchar(55) | YES  |     | NULL    |       |
+| d_no   | int         | YES  | MUL | NULL    |       |
+| d_id   | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student modify column ph_no int not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| stu_id | int         | NO   | PRI | NULL    |       |
+| f_name | varchar(55) | NO   |     | NULL    |       |
+| l_name | varchar(33) | YES  |     | NULL    |       |
+| gender | varchar(33) | YES  |     | NULL    |       |
+| ph_no  | int         | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table department and student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and student' at line 1
+mysql> drop table department;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+************************************************************************************************************************************************
+3)Perform following SQL queries on the database:
+   1. Imlementation of relational operators in SQL
+   2. Boolean operator
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+31 rows in set (0.00 sec)
+
+mysql> create database bank1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use bank1;
+Database changed
+mysql> create table bank(b_name varchar(45),b_id int(44),b_no int(33),b_add varchar(88));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> insert into bank(b_name,b_id,b_no,b_add) values('abc',44,1,'fgg'),('def',45,2,'jhg'),('ghi',46,3,'uiu');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into bank(b_name,b_id,b_no,b_add) values('jkl',47,4,'kah'),('mno'48,5,'asd'),('pqr',49,6,'fwew'),('stu',50,7,'ewr');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '48,5,'asd'),('pqr',49,6,'fwew'),('stu',50,7,'ewr')' at line 1
+mysql> insert into bank(b_name,b_id,b_no,b_add) values('jkl',47,4,'kah'),('mno',48,5,'asd'),('pqr',49,6,'fwew'),('stu',50,7,'ewr');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc bank;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| b_name | varchar(45) | YES  |     | NULL    |       |
+| b_id   | int         | YES  |     | NULL    |       |
+| b_no   | int         | YES  |     | NULL    |       |
+| b_add  | varchar(88) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from bank;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from b_no where b_no<4;
+ERROR 1146 (42S02): Table 'bank1.b_no' doesn't exist
+mysql> select * from bank1 where b_no<4;
+ERROR 1146 (42S02): Table 'bank1.bank1' doesn't exist
+mysql> select * from bank where b_no<4;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no>4;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no=4;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| jkl    |   47 |    4 | kah   |
++--------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from bank where b_no<=3;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no>=5;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no<>8;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from bank where b_name='mno' AND b_no=5;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| mno    |   48 |    5 | asd   |
++--------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from bank where b_name='abc' OR b_no=6;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| pqr    |   49 |    6 | fwew  |
++--------+------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from bank where b_name='sdf' NOT b_no=8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=8' at line 1
+mysql> select * from bank where b_name='sdf' NOT b_no=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=7' at line 1
+mysql> select * from bank where b_name='abc' NOT b_no=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=7' at line 1
+mysql> select * from bank where b_name='mpo' AND b_no=8;
+Empty set (0.00 sec)
+
+mysql> select * from bank where b_name='mpo' NOT b_no=8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=8' at line 1
+mysql> select * from bank where NOT b_name='sfd';
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql>
+*************************************************************************************************************************************************
+4)Perform following SQL queries on the database:
+   1. pattern matching
+   2. Arithmetic operations and built in functions
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+32 rows in set (0.00 sec)
+
+mysql> use bank1;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_bank1 |
++-----------------+
+| bank            |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> desc bank;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| b_name | varchar(45) | YES  |     | NULL    |       |
+| b_id   | int         | YES  |     | NULL    |       |
+| b_no   | int         | YES  |     | NULL    |       |
+| b_add  | varchar(88) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from bank;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE '%uiu%';   ////**Pattern matching**////
++------+
+| b_id |
++------+
+|   46 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE 'uiu%';
++------+
+| b_id |
++------+
+|   46 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE 'uiu';
++------+
+| b_id |
++------+
+|   46 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE '_uiu_';
+Empty set (0.00 sec)
+
+mysql> select b_name from bank where b_add LIKE '%uiu%';
++--------+
+| b_name |
++--------+
+| ghi    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select b_name from bank where b_add LIKE 'uiu%';
++--------+
+| b_name |
++--------+
+| ghi    |
++--------+
+1 row in set (0.00 sec)
+
+
+mysql> select b_name from bank where b_name LIKE '___';
++--------+
+| b_name |
++--------+
+| abc    |
+| def    |
+| ghi    |
+| jkl    |
+| mno    |
+| pqr    |
+| stu    |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name from bank where b_name LIKE '%f';
++--------+
+| b_name |
++--------+
+| def    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select b_name from bank where b_name LIKE 'f%';
+Empty set (0.00 sec)
+
+mysql> select b_name from bank where b_name LIKE '%f%';
++--------+
+| b_name |
++--------+
+| def    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select b_name,b_id from bank where b_id IN (44,45);
++--------+------+
+| b_name | b_id |
++--------+------+
+| abc    |   44 |
+| def    |   45 |
++--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no+10 AS 'b_no+10' from bank;     ////**Arithmetic operators**////
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no+10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      11 |
+| def    |   45 | jhg   |      12 |
+| ghi    |   46 | uiu   |      13 |
+| jkl    |   47 | kah   |      14 |
+| mno    |   48 | asd   |      15 |
+| pqr    |   49 | fwew  |      16 |
+| stu    |   50 | ewr   |      17 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no-10 AS 'b_no+10' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no+10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      -9 |
+| def    |   45 | jhg   |      -8 |
+| ghi    |   46 | uiu   |      -7 |
+| jkl    |   47 | kah   |      -6 |
+| mno    |   48 | asd   |      -5 |
+| pqr    |   49 | fwew  |      -4 |
+| stu    |   50 | ewr   |      -3 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no-10 AS 'b_no-10' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no-10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      -9 |
+| def    |   45 | jhg   |      -8 |
+| ghi    |   46 | uiu   |      -7 |
+| jkl    |   47 | kah   |      -6 |
+| mno    |   48 | asd   |      -5 |
+| pqr    |   49 | fwew  |      -4 |
+| stu    |   50 | ewr   |      -3 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no*10 AS 'b_no*10' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no*10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      10 |
+| def    |   45 | jhg   |      20 |
+| ghi    |   46 | uiu   |      30 |
+| jkl    |   47 | kah   |      40 |
+| mno    |   48 | asd   |      50 |
+| pqr    |   49 | fwew  |      60 |
+| stu    |   50 | ewr   |      70 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no/2 AS 'b_no/2' from bank;
++--------+------+-------+--------+
+| b_name | b_id | b_add | b_no/2 |
++--------+------+-------+--------+
+| abc    |   44 | fgg   | 0.5000 |
+| def    |   45 | jhg   | 1.0000 |
+| ghi    |   46 | uiu   | 1.5000 |
+| jkl    |   47 | kah   | 2.0000 |
+| mno    |   48 | asd   | 2.5000 |
+| pqr    |   49 | fwew  | 3.0000 |
+| stu    |   50 | ewr   | 3.5000 |
++--------+------+-------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_id/2 AS 'b_id/2' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_id/2  |
++--------+------+-------+---------+
+| abc    |   44 | fgg   | 22.0000 |
+| def    |   45 | jhg   | 22.5000 |
+| ghi    |   46 | uiu   | 23.0000 |
+| jkl    |   47 | kah   | 23.5000 |
+| mno    |   48 | asd   | 24.0000 |
+| pqr    |   49 | fwew  | 24.5000 |
+| stu    |   50 | ewr   | 25.0000 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select AVG(b_id) from bank;        /////**Built in /aggregate function**/////
++-----------+
+| AVG(b_id) |
++-----------+
+|   47.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select SUM(b_id) from bank;
++-----------+
+| SUM(b_id) |
++-----------+
+|       329 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(b_id) from bank;
++-----------+
+| MIN(b_id) |
++-----------+
+|        44 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(b_id) from bank;
++-----------+
+| MAX(b_id) |
++-----------+
+|        50 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(b_id) from bank;
++-------------+
+| COUNT(b_id) |
++-------------+
+|           7 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>
+*******************************************************************************************************************************************************************************************************
+5)Perform following SQL queries on the database:
+   1. Group function
+   2. date function
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+32 rows in set (0.00 sec)
+
+mysql> use bank1;
+Database changed
+mysql> select * from bank;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name from bank group by b_name;
++--------+
+| b_name |
++--------+
+| abc    |
+| def    |
+| ghi    |
+| jkl    |
+| mno    |
+| pqr    |
+| stu    |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name from bank group by b_no;
++--------+
+| b_name |
++--------+
+| abc    |
+| def    |
+| ghi    |
+| jkl    |
+| mno    |
+| pqr    |
+| stu    |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add from bank where b_name='ghi' ORDER BY b_no DESC;
++--------+------+-------+
+| b_name | b_id | b_add |
++--------+------+-------+
+| ghi    |   46 | uiu   |
++--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add from bank where b_name='ghi' ORDER BY b_no ASC;
++--------+------+-------+
+| b_name | b_id | b_add |
++--------+------+-------+
+| ghi    |   46 | uiu   |
++--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from bank group by b_name having b_name='ghi';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+
+mysql> select count(*) from bank group by b_no having b_no=4;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select now();            ////** date function**////
++---------------------+
+| now()               |
++---------------------+
+| 2022-05-28 21:00:19 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date (now());
++--------------+
+| date (now()) |
++--------------+
+| 2022-05-28   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-05-28 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%m/%d/%y')today;
++----------+
+| today    |
++----------+
+| 05/28/22 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select day("2022-05-23");
++-------------------+
+| day("2022-05-23") |
++-------------------+
+|                23 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select day(curday());
+ERROR 1046 (3D000): No database selected
+mysql> select dayname("2022-05-28");
++-----------------------+
+| dayname("2022-05-28") |
++-----------------------+
+| Saturday              |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select sysdate();
++---------------------+
+| sysdate()           |
++---------------------+
+| 2022-05-28 21:15:37 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select timediff("15:10:11","13:10:15");
++---------------------------------+
+| timediff("15:10:11","13:10:15") |
++---------------------------------+
+| 01:59:56                        |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select week("2022-05-28");
++--------------------+
+| week("2022-05-28") |
++--------------------+
+|                 21 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select yearweek("2022-05-28");
++------------------------+
+| yearweek("2022-05-28") |
++------------------------+
+|                 202221 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select to_day("2022-05-27");
+ERROR 1046 (3D000): No database selected
+mysql> select to_days("2022-05-27");
++-----------------------+
+| to_days("2022-05-27") |
++-----------------------+
+|                738667 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql>  select minute("2022-05-28 9:21:44");
++------------------------------+
+| minute("2022-05-28 9:21:44") |
++------------------------------+
+|                           21 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+***********************************************************************************************************************
+6)Perform following SQL queries on the database:
+   1.Time function
+   2.complex queries and set operators
+
+mysql> select time(now());             ///**time function**///
++-------------+
+| time(now()) |
++-------------+
+| 21:40:58    |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>  select minute("2022-05-28 9:21:44");
++------------------------------+
+| minute("2022-05-28 9:21:44") |
++------------------------------+
+|                           21 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select timediff("15:10:11","13:10:15");
++---------------------------------+
+| timediff("15:10:11","13:10:15") |
++---------------------------------+
+| 01:59:56                        |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show databases;         ////***set operators***///
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+33 rows in set (0.01 sec)
+
+mysql> use company;
+Database changed
+
+mysql> create table employee2(e_name varchar(66),id int(45),e_no int(66),salary int(88));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> insert into employee2(e_name,id,e_no,salary) values('sakshi',1,44,45000),('ishvari',2,45,65000),('madhuri',3,46,64000),('neha',4,47,77000);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee2;
++---------+------+------+--------+
+| e_name  | id   | e_no | salary |
++---------+------+------+--------+
+| sakshi  |    1 |   44 |  45000 |
+| ishvari |    2 |   45 |  65000 |
+| madhuri |    3 |   46 |  64000 |
+| neha    |    4 |   47 |  77000 |
++---------+------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create table employee3(name varchar(56),id int(35),e_no int(36),salary int(98));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> insert into employee3(name,id,e_no,salary) values('rashmi',5,48,75000),('yashasvi',6,49,45000),('monyaa',7,50,69000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee3;
++----------+------+------+--------+
+| name     | id   | e_no | salary |
++----------+------+------+--------+
+| rashmi   |    5 |   48 |  75000 |
+| yashasvi |    6 |   49 |  45000 |
+| monyaa   |    7 |   50 |  69000 |
++----------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  employee2 UNION select * from  employee3;
++----------+------+------+--------+
+| e_name   | id   | e_no | salary |
++----------+------+------+--------+
+| sakshi   |    1 |   44 |  45000 |
+| ishvari  |    2 |   45 |  65000 |
+| madhuri  |    3 |   46 |  64000 |
+| neha     |    4 |   47 |  77000 |
+| rashmi   |    5 |   48 |  75000 |
+| yashasvi |    6 |   49 |  45000 |
+| monyaa   |    7 |   50 |  69000 |
++----------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from  employee2 UNION ALL select * from  employee3;
++----------+------+------+--------+
+| e_name   | id   | e_no | salary |
++----------+------+------+--------+
+| sakshi   |    1 |   44 |  45000 |
+| ishvari  |    2 |   45 |  65000 |
+| madhuri  |    3 |   46 |  64000 |
+| neha     |    4 |   47 |  77000 |
+| rashmi   |    5 |   48 |  75000 |
+| yashasvi |    6 |   49 |  45000 |
+| monyaa   |    7 |   50 |  69000 |
++----------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql>
+
+****************************************************************************************************************************************************
+7) Execute DDL/DML statements which demonstrate the use of views.Try to update the base table using its corresponding view.
+
+
+
+
+****************************************************************************************************************************************************
+8)write a stored proedure to find did,dname&sum of salaries of respective dept,take did as input.
+
+**************************************************************************************************************************************************
+16)
+
+mysql> create database shop1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use shop1;
+Database changed
+mysql> create table books(name varchar(44),edition int(66),ISBN int(78),price int(68));
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_shop1 |
++-----------------+
+| books           |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into books(name,edition,ISBN,price) values('life',1,666,600),('motivation',3,,444,700),('life',2,555,6700),('forget',1,456,5600);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',444,700),('life',2,555,6700),('forget',1,456,5600)' at line 1
+mysql> insert into books(name,edition,ISBN,price) values('life',1,666,600),('motivation',3,444,700),('life',2,555,6700),('forget',1,456,5600);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into books(name,edition,ISBN,price) values('distance',1,345,6600),('college',1,823,5500);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from books;
++------------+---------+------+-------+
+| name       | edition | ISBN | price |
++------------+---------+------+-------+
+| life       |       1 |  666 |   600 |
+| motivation |       3 |  444 |   700 |
+| life       |       2 |  555 |  6700 |
+| forget     |       1 |  456 |  5600 |
+| distance   |       1 |  345 |  6600 |
+| college    |       1 |  823 |  5500 |
++------------+---------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create table red_price(title varchar(65),ISBN int(65),price int(67));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_shop1 |
++-----------------+
+| books           |
+| red_price       |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc red_price;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| title | varchar(65) | YES  |     | NULL    |       |
+| ISBN  | int         | YES  |     | NULL    |       |
+| price | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create procedure red_books_price()
+    -> begin
+    -> declare ISBN int;
+    -> declare name varchar(44);
+    -> declare edition int;
+    -> declare price int;
+    -> declare exit_loop Boolean;
+    -> declare e_cursor cursor for select ISBN,edition,name,price from books;
+    -> declare continue handler for not found set exit_loop=True;
+    -> open e_cursor;
+    -> books_loop:loop
+    -> fetch e_cursor into ISBN,edition,name,price;
+    -> if(edition=1)then set price=price-50;
+    -> else
+    -> set price=price;
+    -> end if;
+    -> if exit_loop then
+    -> close e_cursor;
+    -> leave books_loop;
+    -> else
+    -> insert into red_price values(title,ISBN,price);
+    -> end if;
+    -> end loop books_loop;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call red_books_price();
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from red_price;
+    -> //
++-------+------+-------+
+| title | ISBN | price |
++-------+------+-------+
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
++-------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql>

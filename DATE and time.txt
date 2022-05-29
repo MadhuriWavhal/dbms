@@ -1,0 +1,679 @@
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-05-28 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select date(now());
++-------------+
+| date(now()) |
++-------------+
+| 2022-05-28  |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2022-05-28 23:00:43 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select DAYNAME('2022-03-01');
++-----------------------+
+| DAYNAME('2022-03-01') |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DAYOFMONTH('2023-08-28');
++--------------------------+
+| DAYOFMONTH('2023-08-28') |
++--------------------------+
+|                       28 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2023-11-20');
++-----------------------+
+| DAYNAME('2023-11-20') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_DATE();
++----------------+
+| CURRENT_DATE() |
++----------------+
+| 2022-05-28     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY OF MONTH('2022-03-23');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OF MONTH('2022-03-23')' at line 1
+mysql> SELECT DAY OF MONTH();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OF MONTH()' at line 1
+mysql> select DAYOFMONTH();
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'DAYOFMONTH'
+mysql> select DAYOFMONTH(2023-02-23');
+    '> select DAYOFMONTH('2023-02-23');
+    '> ^C
+mysql> select DAYOFMONTH('2023-02-23');
++--------------------------+
+| DAYOFMONTH('2023-02-23') |
++--------------------------+
+|                       23 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select DAYOFWEEK('2022-03-02');
++-------------------------+
+| DAYOFWEEK('2022-03-02') |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY('2022-03-02');
++-------------------+
+| DAY('2022-03-02') |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2022-02-03');
++-------------------------+
+| DAYOFYEAR('2022-02-03') |
++-------------------------+
+|                      34 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> select TIME();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select TIME("2017-03-02 19:12:15");
++-----------------------------+
+| TIME("2017-03-02 19:12:15") |
++-----------------------------+
+| 19:12:15                    |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME(NOW());
++-------------+
+| TIME(NOW()) |
++-------------+
+| 23:18:32    |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME(NULL);
++------------+
+| TIME(NULL) |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT("19:16:02,%H %i %S");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'TIME_FORMAT'
+mysql> SELECT TIME_FORMAT("19:16:02","%H %i %S");
++------------------------------------+
+| TIME_FORMAT("19:16:02","%H %i %S") |
++------------------------------------+
+| 19 16 02                           |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT("19:16:02","%r");
++------------------------------+
+| TIME_FORMAT("19:16:02","%r") |
++------------------------------+
+| 07:16:02 PM                  |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT("19:16:02","%T");
++------------------------------+
+| TIME_FORMAT("19:16:02","%T") |
++------------------------------+
+| 19:16:02                     |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME("2017-08-07 19:10:20.10000");
++-----------------------------------+
+| TIME("2017-08-07 19:10:20.10000") |
++-----------------------------------+
+| 19:10:20.10000                    |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK("2022-03-04");
++-------------------------+
+| DAYOFWEEK("2022-03-04") |
++-------------------------+
+|                       6 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXACT (YEAR FROM '2022-02-03');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM '2022-02-03')' at line 1
+mysql> SELECT EXTRACT (YEAR FROM '2022-02-03');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM '2022-02-03')' at line 1
+mysql> SELECT EXTRACT(YEAR FROM '2022-03-04');
++---------------------------------+
+| EXTRACT(YEAR FROM '2022-03-04') |
++---------------------------------+
+|                            2022 |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(MONTH FROM '2032-05-06 01:02:10');
++-------------------------------------------+
+| EXTRACT(MONTH FROM '2032-05-06 01:02:10') |
++-------------------------------------------+
+|                                         5 |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(DATE FROM '2032-05-06 01:02:10');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATE FROM '2032-05-06 01:02:10')' at line 1
+mysql> SELECT EXTRACT(YEAR_MONTH FROM '2032-05-06 01:02:10');
++------------------------------------------------+
+| EXTRACT(YEAR_MONTH FROM '2032-05-06 01:02:10') |
++------------------------------------------------+
+|                                         203205 |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT HOUR('12:23:50');
++------------------+
+| HOUR('12:23:50') |
++------------------+
+|               12 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MONTHNAME('2022-05-30'_;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT MONTHNAME('2022-05-30');
++-------------------------+
+| MONTHNAME('2022-05-30') |
++-------------------------+
+| May                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2022-05-28 23:28:10 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIMESTAMP('2022-02-03');
++-------------------------+
+| TIMESTAMP('2022-02-03') |
++-------------------------+
+| 2022-02-03 00:00:00     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SECOND('12:13:12');
++--------------------+
+| SECOND('12:13:12') |
++--------------------+
+|                 12 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2022-05-28 23:29:44 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 23:30:14  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF('2022-03-02','2001-08-28')'
+    '> SELECT DATEDIFF('2022-03-02','2001-08-28');
+    '> ^C
+mysql> SELECT DATEDIFF('2022-03-02','2001-08-28');
++-------------------------------------+
+| DATEDIFF('2022-03-02','2001-08-28') |
++-------------------------------------+
+|                                7491 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2022-05-30);
+    '> ^C
+mysql> SELECT DAYNAME('2022-05-30');
++-----------------------+
+| DAYNAME('2022-05-30') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select TIME();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select TIME("2017-03-02 19:12:15");
++-----------------------------+
+| TIME("2017-03-02 19:12:15") |
++-----------------------------+
+| 19:12:15                    |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME(NOW());
++-------------+
+| TIME(NOW()) |
++-------------+
+| 23:18:32    |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME(NULL);
++------------+
+| TIME(NULL) |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT("19:16:02,%H %i %S");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'TIME_FORMAT'
+mysql> SELECT TIME_FORMAT("19:16:02","%H %i %S");
++------------------------------------+
+| TIME_FORMAT("19:16:02","%H %i %S") |
++------------------------------------+
+| 19 16 02                           |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT("19:16:02","%r");
++------------------------------+
+| TIME_FORMAT("19:16:02","%r") |
++------------------------------+
+| 07:16:02 PM                  |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME_FORMAT("19:16:02","%T");
++------------------------------+
+| TIME_FORMAT("19:16:02","%T") |
++------------------------------+
+| 19:16:02                     |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIME("2017-08-07 19:10:20.10000");
++-----------------------------------+
+| TIME("2017-08-07 19:10:20.10000") |
++-----------------------------------+
+| 19:10:20.10000                    |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK("2022-03-04");
++-------------------------+
+| DAYOFWEEK("2022-03-04") |
++-------------------------+
+|                       6 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXACT (YEAR FROM '2022-02-03');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM '2022-02-03')' at line 1
+mysql> SELECT EXTRACT (YEAR FROM '2022-02-03');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM '2022-02-03')' at line 1
+mysql> SELECT EXTRACT(YEAR FROM '2022-03-04');
++---------------------------------+
+| EXTRACT(YEAR FROM '2022-03-04') |
++---------------------------------+
+|                            2022 |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(MONTH FROM '2032-05-06 01:02:10');
++-------------------------------------------+
+| EXTRACT(MONTH FROM '2032-05-06 01:02:10') |
++-------------------------------------------+
+|                                         5 |
++-------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EXTRACT(DATE FROM '2032-05-06 01:02:10');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATE FROM '2032-05-06 01:02:10')' at line 1
+mysql> SELECT EXTRACT(YEAR_MONTH FROM '2032-05-06 01:02:10');
++------------------------------------------------+
+| EXTRACT(YEAR_MONTH FROM '2032-05-06 01:02:10') |
++------------------------------------------------+
+|                                         203205 |
++------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT HOUR('12:23:50');
++------------------+
+| HOUR('12:23:50') |
++------------------+
+|               12 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MONTHNAME('2022-05-30'_;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT MONTHNAME('2022-05-30');
++-------------------------+
+| MONTHNAME('2022-05-30') |
++-------------------------+
+| May                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2022-05-28 23:28:10 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TIMESTAMP('2022-02-03');
++-------------------------+
+| TIMESTAMP('2022-02-03') |
++-------------------------+
+| 2022-02-03 00:00:00     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SECOND('12:13:12');
++--------------------+
+| SECOND('12:13:12') |
++--------------------+
+|                 12 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2022-05-28 23:29:44 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 23:30:14  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF('2022-03-02','2001-08-28')'
+    '> SELECT DATEDIFF('2022-03-02','2001-08-28');
+    '> ^C
+mysql> SELECT DATEDIFF('2022-03-02','2001-08-28');
++-------------------------------------+
+| DATEDIFF('2022-03-02','2001-08-28') |
++-------------------------------------+
+|                                7491 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2022-05-30);
+    '> ^C
+mysql> SELECT DAYNAME('2022-05-30');
++-----------------------+
+| DAYNAME('2022-05-30') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+mysql> select DAYOFWEEK('2022-03-02');
++-------------------------+
+| DAYOFWEEK('2022-03-02') |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY('2022-03-02');
++-------------------+
+| DAY('2022-03-02') |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2022-02-03');
++-------------------------+
+| DAYOFYEAR('2022-02-03') |
++-------------------------+
+|                      34 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%m/%d/%d');
++-----------------------------------+
+| date_format(curdate(),'%m/%d/%d') |
++-----------------------------------+
+| 05/28/28                          |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%y:%m:%d');
++-----------------------------------+
+| date_format(curdate(),'%y:%m:%d') |
++-----------------------------------+
+| 22:05:28                          |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-05-28 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select date(now());
++-------------+
+| date(now()) |
++-------------+
+| 2022-05-28  |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2022-05-28 23:00:43 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select DAYNAME('2022-03-01');
++-----------------------+
+| DAYNAME('2022-03-01') |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT DAYOFMONTH('2023-08-28');
++--------------------------+
+| DAYOFMONTH('2023-08-28') |
++--------------------------+
+|                       28 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME('2023-11-20');
++-----------------------+
+| DAYNAME('2023-11-20') |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_DATE();
++----------------+
+| CURRENT_DATE() |
++----------------+
+| 2022-05-28     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY OF MONTH('2022-03-23');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OF MONTH('2022-03-23')' at line 1
+mysql> SELECT DAY OF MONTH();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'OF MONTH()' at line 1
+mysql> select DAYOFMONTH();
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'DAYOFMONTH'
+mysql> select DAYOFMONTH(2023-02-23');
+    '> select DAYOFMONTH('2023-02-23');
+    '> ^C
+mysql> select DAYOFMONTH('2023-02-23');
++--------------------------+
+| DAYOFMONTH('2023-02-23') |
++--------------------------+
+|                       23 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select DAYOFWEEK('2022-03-02');
++-------------------------+
+| DAYOFWEEK('2022-03-02') |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY('2022-03-02');
++-------------------+
+| DAY('2022-03-02') |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2022-02-03');
++-------------------------+
+| DAYOFYEAR('2022-02-03') |
++-------------------------+
+|                      34 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+mysql> select DAYOFWEEK('2022-03-02');
++-------------------------+
+| DAYOFWEEK('2022-03-02') |
++-------------------------+
+|                       4 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY('2022-03-02');
++-------------------+
+| DAY('2022-03-02') |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR('2022-02-03');
++-------------------------+
+| DAYOFYEAR('2022-02-03') |
++-------------------------+
+|                      34 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%m/%d/%d');
++-----------------------------------+
+| date_format(curdate(),'%m/%d/%d') |
++-----------------------------------+
+| 05/28/28                          |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%y:%m:%d');
++-----------------------------------+
+| date_format(curdate(),'%y:%m:%d') |
++-----------------------------------+
+| 22:05:28                          |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
