@@ -1,0 +1,2183 @@
+
+
+
+
+*********************************************************************************************************************
+
+2) ////*****Design and implement a database with primary key and foreign key constraints.perform
+            1)alter table with add n modify   2)drop table*****////
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+30 rows in set (0.00 sec)
+
+mysql> create database school2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use school2;
+Database changed
+mysql> create table student(stu_id int(40) primary key,f_name varchar(55) not null,l_name varchar(33),gender varchar(33),ph_no int(10));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| stu_id | int         | NO   | PRI | NULL    |       |
+| f_name | varchar(55) | NO   |     | NULL    |       |
+| l_name | varchar(33) | YES  |     | NULL    |       |
+| gender | varchar(33) | YES  |     | NULL    |       |
+| ph_no  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table department(d_name varchar(55),d_no int(20),d_id int(55),constraint stu_fk foreign key(d_no) references stu(stu_id));
+ERROR 1824 (HY000): Failed to open the referenced table 'stu'
+mysql> create table department(d_name varchar(55),d_no int(20),d_id int(55),constraint student_fk foreign key(d_no) references student(stu_id));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc department;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| d_name | varchar(55) | YES  |     | NULL    |       |
+| d_no   | int         | YES  | MUL | NULL    |       |
+| d_id   | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table student modify column ph_no int not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| stu_id | int         | NO   | PRI | NULL    |       |
+| f_name | varchar(55) | NO   |     | NULL    |       |
+| l_name | varchar(33) | YES  |     | NULL    |       |
+| gender | varchar(33) | YES  |     | NULL    |       |
+| ph_no  | int         | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table department and student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and student' at line 1
+mysql> drop table department;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+************************************************************************************************************************************************
+3)Perform following SQL queries on the database:
+   1. Imlementation of relational operators in SQL
+   2. Boolean operator
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+31 rows in set (0.00 sec)
+
+mysql> create database bank1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use bank1;
+Database changed
+mysql> create table bank(b_name varchar(45),b_id int(44),b_no int(33),b_add varchar(88));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> insert into bank(b_name,b_id,b_no,b_add) values('abc',44,1,'fgg'),('def',45,2,'jhg'),('ghi',46,3,'uiu');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into bank(b_name,b_id,b_no,b_add) values('jkl',47,4,'kah'),('mno'48,5,'asd'),('pqr',49,6,'fwew'),('stu',50,7,'ewr');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '48,5,'asd'),('pqr',49,6,'fwew'),('stu',50,7,'ewr')' at line 1
+mysql> insert into bank(b_name,b_id,b_no,b_add) values('jkl',47,4,'kah'),('mno',48,5,'asd'),('pqr',49,6,'fwew'),('stu',50,7,'ewr');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc bank;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| b_name | varchar(45) | YES  |     | NULL    |       |
+| b_id   | int         | YES  |     | NULL    |       |
+| b_no   | int         | YES  |     | NULL    |       |
+| b_add  | varchar(88) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from bank;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from b_no where b_no<4;
+ERROR 1146 (42S02): Table 'bank1.b_no' doesn't exist
+mysql> select * from bank1 where b_no<4;
+ERROR 1146 (42S02): Table 'bank1.bank1' doesn't exist
+mysql> select * from bank where b_no<4;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no>4;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no=4;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| jkl    |   47 |    4 | kah   |
++--------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from bank where b_no<=3;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no>=5;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from bank where b_no<>8;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from bank where b_name='mno' AND b_no=5;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| mno    |   48 |    5 | asd   |
++--------+------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from bank where b_name='abc' OR b_no=6;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| pqr    |   49 |    6 | fwew  |
++--------+------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from bank where b_name='sdf' NOT b_no=8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=8' at line 1
+mysql> select * from bank where b_name='sdf' NOT b_no=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=7' at line 1
+mysql> select * from bank where b_name='abc' NOT b_no=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=7' at line 1
+mysql> select * from bank where b_name='mpo' AND b_no=8;
+Empty set (0.00 sec)
+
+mysql> select * from bank where b_name='mpo' NOT b_no=8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'b_no=8' at line 1
+mysql> select * from bank where NOT b_name='sfd';
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql>
+*************************************************************************************************************************************************
+4)Perform following SQL queries on the database:
+   1. pattern matching
+   2. Arithmetic operations and built in functions
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+32 rows in set (0.00 sec)
+
+mysql> use bank1;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_bank1 |
++-----------------+
+| bank            |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> desc bank;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| b_name | varchar(45) | YES  |     | NULL    |       |
+| b_id   | int         | YES  |     | NULL    |       |
+| b_no   | int         | YES  |     | NULL    |       |
+| b_add  | varchar(88) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from bank;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE '%uiu%';   ////**Pattern matching**////
++------+
+| b_id |
++------+
+|   46 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE 'uiu%';
++------+
+| b_id |
++------+
+|   46 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE 'uiu';
++------+
+| b_id |
++------+
+|   46 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select b_id from bank where b_add LIKE '_uiu_';
+Empty set (0.00 sec)
+
+mysql> select b_name from bank where b_add LIKE '%uiu%';
++--------+
+| b_name |
++--------+
+| ghi    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select b_name from bank where b_add LIKE 'uiu%';
++--------+
+| b_name |
++--------+
+| ghi    |
++--------+
+1 row in set (0.00 sec)
+
+
+mysql> select b_name from bank where b_name LIKE '___';
++--------+
+| b_name |
++--------+
+| abc    |
+| def    |
+| ghi    |
+| jkl    |
+| mno    |
+| pqr    |
+| stu    |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name from bank where b_name LIKE '%f';
++--------+
+| b_name |
++--------+
+| def    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select b_name from bank where b_name LIKE 'f%';
+Empty set (0.00 sec)
+
+mysql> select b_name from bank where b_name LIKE '%f%';
++--------+
+| b_name |
++--------+
+| def    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select b_name,b_id from bank where b_id IN (44,45);
++--------+------+
+| b_name | b_id |
++--------+------+
+| abc    |   44 |
+| def    |   45 |
++--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no+10 AS 'b_no+10' from bank;     ////**Arithmetic operators**////
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no+10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      11 |
+| def    |   45 | jhg   |      12 |
+| ghi    |   46 | uiu   |      13 |
+| jkl    |   47 | kah   |      14 |
+| mno    |   48 | asd   |      15 |
+| pqr    |   49 | fwew  |      16 |
+| stu    |   50 | ewr   |      17 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no-10 AS 'b_no+10' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no+10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      -9 |
+| def    |   45 | jhg   |      -8 |
+| ghi    |   46 | uiu   |      -7 |
+| jkl    |   47 | kah   |      -6 |
+| mno    |   48 | asd   |      -5 |
+| pqr    |   49 | fwew  |      -4 |
+| stu    |   50 | ewr   |      -3 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no-10 AS 'b_no-10' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no-10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      -9 |
+| def    |   45 | jhg   |      -8 |
+| ghi    |   46 | uiu   |      -7 |
+| jkl    |   47 | kah   |      -6 |
+| mno    |   48 | asd   |      -5 |
+| pqr    |   49 | fwew  |      -4 |
+| stu    |   50 | ewr   |      -3 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no*10 AS 'b_no*10' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_no*10 |
++--------+------+-------+---------+
+| abc    |   44 | fgg   |      10 |
+| def    |   45 | jhg   |      20 |
+| ghi    |   46 | uiu   |      30 |
+| jkl    |   47 | kah   |      40 |
+| mno    |   48 | asd   |      50 |
+| pqr    |   49 | fwew  |      60 |
+| stu    |   50 | ewr   |      70 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_no/2 AS 'b_no/2' from bank;
++--------+------+-------+--------+
+| b_name | b_id | b_add | b_no/2 |
++--------+------+-------+--------+
+| abc    |   44 | fgg   | 0.5000 |
+| def    |   45 | jhg   | 1.0000 |
+| ghi    |   46 | uiu   | 1.5000 |
+| jkl    |   47 | kah   | 2.0000 |
+| mno    |   48 | asd   | 2.5000 |
+| pqr    |   49 | fwew  | 3.0000 |
+| stu    |   50 | ewr   | 3.5000 |
++--------+------+-------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add,b_id/2 AS 'b_id/2' from bank;
++--------+------+-------+---------+
+| b_name | b_id | b_add | b_id/2  |
++--------+------+-------+---------+
+| abc    |   44 | fgg   | 22.0000 |
+| def    |   45 | jhg   | 22.5000 |
+| ghi    |   46 | uiu   | 23.0000 |
+| jkl    |   47 | kah   | 23.5000 |
+| mno    |   48 | asd   | 24.0000 |
+| pqr    |   49 | fwew  | 24.5000 |
+| stu    |   50 | ewr   | 25.0000 |
++--------+------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select AVG(b_id) from bank;        /////**Built in /aggregate function**/////
++-----------+
+| AVG(b_id) |
++-----------+
+|   47.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select SUM(b_id) from bank;
++-----------+
+| SUM(b_id) |
++-----------+
+|       329 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(b_id) from bank;
++-----------+
+| MIN(b_id) |
++-----------+
+|        44 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(b_id) from bank;
++-----------+
+| MAX(b_id) |
++-----------+
+|        50 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(b_id) from bank;
++-------------+
+| COUNT(b_id) |
++-------------+
+|           7 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>
+*******************************************************************************************************************************************************************************************************
+5)Perform following SQL queries on the database:
+   1. Group function
+   2. date function
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+32 rows in set (0.00 sec)
+
+mysql> use bank1;
+Database changed
+mysql> select * from bank;
++--------+------+------+-------+
+| b_name | b_id | b_no | b_add |
++--------+------+------+-------+
+| abc    |   44 |    1 | fgg   |
+| def    |   45 |    2 | jhg   |
+| ghi    |   46 |    3 | uiu   |
+| jkl    |   47 |    4 | kah   |
+| mno    |   48 |    5 | asd   |
+| pqr    |   49 |    6 | fwew  |
+| stu    |   50 |    7 | ewr   |
++--------+------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name from bank group by b_name;
++--------+
+| b_name |
++--------+
+| abc    |
+| def    |
+| ghi    |
+| jkl    |
+| mno    |
+| pqr    |
+| stu    |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name from bank group by b_no;
++--------+
+| b_name |
++--------+
+| abc    |
+| def    |
+| ghi    |
+| jkl    |
+| mno    |
+| pqr    |
+| stu    |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add from bank where b_name='ghi' ORDER BY b_no DESC;
++--------+------+-------+
+| b_name | b_id | b_add |
++--------+------+-------+
+| ghi    |   46 | uiu   |
++--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select b_name,b_id,b_add from bank where b_name='ghi' ORDER BY b_no ASC;
++--------+------+-------+
+| b_name | b_id | b_add |
++--------+------+-------+
+| ghi    |   46 | uiu   |
++--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from bank group by b_name having b_name='ghi';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+
+mysql> select count(*) from bank group by b_no having b_no=4;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select now();            ////** date function**////
++---------------------+
+| now()               |
++---------------------+
+| 2022-05-28 21:00:19 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date (now());
++--------------+
+| date (now()) |
++--------------+
+| 2022-05-28   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-05-28 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),'%m/%d/%y')today;
++----------+
+| today    |
++----------+
+| 05/28/22 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select day("2022-05-23");
++-------------------+
+| day("2022-05-23") |
++-------------------+
+|                23 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select day(curday());
+ERROR 1046 (3D000): No database selected
+mysql> select dayname("2022-05-28");
++-----------------------+
+| dayname("2022-05-28") |
++-----------------------+
+| Saturday              |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select sysdate();
++---------------------+
+| sysdate()           |
++---------------------+
+| 2022-05-28 21:15:37 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select timediff("15:10:11","13:10:15");
++---------------------------------+
+| timediff("15:10:11","13:10:15") |
++---------------------------------+
+| 01:59:56                        |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select week("2022-05-28");
++--------------------+
+| week("2022-05-28") |
++--------------------+
+|                 21 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select yearweek("2022-05-28");
++------------------------+
+| yearweek("2022-05-28") |
++------------------------+
+|                 202221 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select to_day("2022-05-27");
+ERROR 1046 (3D000): No database selected
+mysql> select to_days("2022-05-27");
++-----------------------+
+| to_days("2022-05-27") |
++-----------------------+
+|                738667 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql>  select minute("2022-05-28 9:21:44");
++------------------------------+
+| minute("2022-05-28 9:21:44") |
++------------------------------+
+|                           21 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+***********************************************************************************************************************
+6)Perform following SQL queries on the database:
+   1.Time function
+   2.complex queries and set operators
+
+mysql> select time(now());             ///**time function**///
++-------------+
+| time(now()) |
++-------------+
+| 21:40:58    |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>  select minute("2022-05-28 9:21:44");
++------------------------------+
+| minute("2022-05-28 9:21:44") |
++------------------------------+
+|                           21 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select timediff("15:10:11","13:10:15");
++---------------------------------+
+| timediff("15:10:11","13:10:15") |
++---------------------------------+
+| 01:59:56                        |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show databases;         ////***set operators***///
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+33 rows in set (0.01 sec)
+
+mysql> use company;
+Database changed
+
+mysql> create table employee2(e_name varchar(66),id int(45),e_no int(66),salary int(88));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> insert into employee2(e_name,id,e_no,salary) values('sakshi',1,44,45000),('ishvari',2,45,65000),('madhuri',3,46,64000),('neha',4,47,77000);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee2;
++---------+------+------+--------+
+| e_name  | id   | e_no | salary |
++---------+------+------+--------+
+| sakshi  |    1 |   44 |  45000 |
+| ishvari |    2 |   45 |  65000 |
+| madhuri |    3 |   46 |  64000 |
+| neha    |    4 |   47 |  77000 |
++---------+------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create table employee3(name varchar(56),id int(35),e_no int(36),salary int(98));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> insert into employee3(name,id,e_no,salary) values('rashmi',5,48,75000),('yashasvi',6,49,45000),('monyaa',7,50,69000);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee3;
++----------+------+------+--------+
+| name     | id   | e_no | salary |
++----------+------+------+--------+
+| rashmi   |    5 |   48 |  75000 |
+| yashasvi |    6 |   49 |  45000 |
+| monyaa   |    7 |   50 |  69000 |
++----------+------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from  employee2 UNION select * from  employee3;
++----------+------+------+--------+
+| e_name   | id   | e_no | salary |
++----------+------+------+--------+
+| sakshi   |    1 |   44 |  45000 |
+| ishvari  |    2 |   45 |  65000 |
+| madhuri  |    3 |   46 |  64000 |
+| neha     |    4 |   47 |  77000 |
+| rashmi   |    5 |   48 |  75000 |
+| yashasvi |    6 |   49 |  45000 |
+| monyaa   |    7 |   50 |  69000 |
++----------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from  employee2 UNION ALL select * from  employee3;
++----------+------+------+--------+
+| e_name   | id   | e_no | salary |
++----------+------+------+--------+
+| sakshi   |    1 |   44 |  45000 |
+| ishvari  |    2 |   45 |  65000 |
+| madhuri  |    3 |   46 |  64000 |
+| neha     |    4 |   47 |  77000 |
+| rashmi   |    5 |   48 |  75000 |
+| yashasvi |    6 |   49 |  45000 |
+| monyaa   |    7 |   50 |  69000 |
++----------+------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql>
+
+****************************************************************************************************************************************************
+7) Execute DDL/DML statements which demonstrate the use of views.Try to update
+ the base table using its corresponding view.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| college            |
+| department         |
+| department1        |
+| employee           |
+| hospital           |
+| information_schema |
+| mysql              |
+| parent             |
+| performance_schema |
+| products           |
+| sakila             |
+| stud1              |
+| student            |
+| sys                |
+| world              |
++--------------------+
+16 rows in set (0.00 sec)
+
+mysql> use employee;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employee           |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> create table dept(dept_id int,deptname varchar(30),mb_no int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dept_id  | int         | YES  |     | NULL    |       |
+| deptname | varchar(30) | YES  |     | NULL    |       |
+| mb_no    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into dept(dept_id,deptname,mb_no)values(101,'IT',45673),(102,'CS',36729),(103,'MECH',56345);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select *from dept;
++---------+----------+-------+
+| dept_id | deptname | mb_no |
++---------+----------+-------+
+|     101 | IT       | 45673 |
+|     102 | CS       | 36729 |
+|     103 | MECH     | 56345 |
++---------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> use employee;
+Database changed
+mysql> select * from employee;
++----------+-------+-------+--------+------+
+| name     | em_id | dept  | salary | age  |
++----------+-------+-------+--------+------+
+| ishwari  |     1 | IT    |    100 |   23 |
+| rashmi   |     2 | CS    |    200 |   22 |
+| yashasvi |     3 | civil |     50 |   21 |
+| samiksha |     4 | mech  |    400 |   19 |
+| sakshi   |     5 | entc  |    300 |   20 |
++----------+-------+-------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> create view emp as select name,em_id,salary from employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from emp;
++----------+-------+--------+
+| name     | em_id | salary |
++----------+-------+--------+
+| ishwari  |     1 |    100 |
+| rashmi   |     2 |    200 |
+| yashasvi |     3 |     50 |
+| samiksha |     4 |    400 |
+| sakshi   |     5 |    300 |
++----------+-------+--------+
+5 rows in set (0.01 sec)
+
+mysql> create view  dept_info as select dept_id,deptname,salary,age from dept,employee where salary=salary;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from dept_info;
++---------+----------+--------+------+
+| dept_id | deptname | salary | age  |
++---------+----------+--------+------+
+|     101 | IT       |    300 |   20 |
+|     101 | IT       |    400 |   19 |
+|     101 | IT       |     50 |   21 |
+|     101 | IT       |    200 |   22 |
+|     101 | IT       |    100 |   23 |
+|     102 | CS       |    300 |   20 |
+|     102 | CS       |    400 |   19 |
+|     102 | CS       |     50 |   21 |
+|     102 | CS       |    200 |   22 |
+|     102 | CS       |    100 |   23 |
+|     103 | MECH     |    300 |   20 |
+|     103 | MECH     |    400 |   19 |
+|     103 | MECH     |     50 |   21 |
+|     103 | MECH     |    200 |   22 |
+|     103 | MECH     |    100 |   23 |
++---------+----------+--------+------+
+15 rows in set (0.00 sec)
+
+mysql> create view empdept as select dept,name,age from employee where age=(select age from employee where age=20);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from empdept;
++------+--------+------+
+| dept | name   | age  |
++------+--------+------+
+| entc | sakshi |   20 |
++------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> update  dept_info set salary=500 where age=19;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from dept_info;
++---------+----------+--------+------+
+| dept_id | deptname | salary | age  |
++---------+----------+--------+------+
+|     101 | IT       |    300 |   20 |
+|     101 | IT       |    500 |   19 |
+|     101 | IT       |     50 |   21 |
+|     101 | IT       |    200 |   22 |
+|     101 | IT       |    100 |   23 |
+|     102 | CS       |    300 |   20 |
+|     102 | CS       |    500 |   19 |
+|     102 | CS       |     50 |   21 |
+|     102 | CS       |    200 |   22 |
+|     102 | CS       |    100 |   23 |
+|     103 | MECH     |    300 |   20 |
+|     103 | MECH     |    500 |   19 |
+|     103 | MECH     |     50 |   21 |
+|     103 | MECH     |    200 |   22 |
+|     103 | MECH     |    100 |   23 |
++---------+----------+--------+------+
+15 rows in set (0.00 sec)
+
+mysql> drop view dept_info;
+Query OK, 0 rows affected (0.01 sec)
+
+
+****************************************************************************************************************************************************
+8)write a stored proedure to find did,dname&sum of salaries of respective dept,
+take did as input.
+
+******************************************************************************************************************************************************
+10) find no. of books issued by every students using stored procedure
+
+
+mysql> create database stud;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use stud;
+Database changed
+mysql> create table student(std_name varchar(25),PRN_NO int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into student values('rima',701);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('sima',702);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('hima',703);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('reena',704);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table BorrowedBy(b_name varchar(25),PRN int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into BorrowedBy values('ram',704);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into BorrowedBy values('sham',703);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into BorrowedBy values('shree',702);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into BorrowedBy values('shreeansh',701);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from BorrowedBy;
++-----------+------+
+| b_name    | PRN  |
++-----------+------+
+| ram       |  704 |
+| sham      |  703 |
+| shree     |  702 |
+| shreeansh |  701 |
++-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student;
++----------+--------+
+| std_name | PRN_NO |
++----------+--------+
+| rima     |    701 |
+| sima     |    702 |
+| hima     |    703 |
+| reena    |    704 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delimiter //
+mysql> drop procedure if exists book;
+    -> create procedure book(IN a int)
+    -> begin
+    -> select PRN_NO,count(PRN) from student,BorrowedBy where BorrowedBy.PRN=student.PRN_NO AND PRN_NO=a group by PRN;
+    -> end;
+    -> //
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call book(704)
+    -> //
++--------+------------+
+| PRN_NO | count(PRN) |
++--------+------------+
+|    704 |          1 |
++--------+------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call book(701)
+    -> //
++--------+------------+
+| PRN_NO | count(PRN) |
++--------+------------+
+|    701 |          1 |
++--------+------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+
+**************************************************************************************************************************************************
+12) write a trigger that will check whether the working hours of any employees
+ are less than zero if it is less than zero then working hours should be update
+ to zero.
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| employees          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| students           |
+| sys                |
+| world              |
++--------------------+
+39 rows in set (0.00 sec)
+
+mysql> create database workers;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use workers;
+Database changed
+mysql> create table works_on(name varchar(78),address varchar(68),w_no int(88),hours int(78));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> desc works_on;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(78) | YES  |     | NULL    |       |
+| address | varchar(68) | YES  |     | NULL    |       |
+| w_no    | int         | YES  |     | NULL    |       |
+| hours   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into works_on(name,address,w_no,hours) values('bridge','abc',22,5),('building','mno',34,1),('river','dfs',76,0),('mountain','jkh',87,2);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from works_on;
++----------+---------+------+-------+
+| name     | address | w_no | hours |
++----------+---------+------+-------+
+| bridge   | abc     |   22 |     5 |
+| building | mno     |   34 |     1 |
+| river    | dfs     |   76 |     0 |
+| mountain | jkh     |   87 |     2 |
++----------+---------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create trigger check_hours
+    -> before insert on works_on
+    -> for each row
+    -> begin
+    -> if NEW.hours<0 then set NEW.hours=0;
+    -> end if;
+    -> end;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from works_on;
+    -> //
++----------+---------+------+-------+
+| name     | address | w_no | hours |
++----------+---------+------+-------+
+| bridge   | abc     |   22 |     5 |
+| building | mno     |   34 |     1 |
+| river    | dfs     |   76 |     0 |
+| mountain | jkh     |   87 |     2 |
++----------+---------+------+-------+
+4 rows in set (0.01 sec)
+
+mysql>
+
+
+*************************************************************************************************************************************************
+13)  write a trigger to update quality of book if that book is issued to student.
+   
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+37 rows in set (0.01 sec)
+
+mysql> create database students;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use students;
+Database changed
+
+mysql> create table borrowedby(b_name varchar(55),book varchar(58),quantity int(78),ISBNNO int(68));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> insert into borrowedby(b_name,book,quantity,ISBNNO) values('lost','sakshi',3,547),('air','madhuri',2,764),('mind','ishwari',4,854),('reason','rashmi',2,754);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from borrowedby;
++--------+---------+----------+--------+
+| b_name | book    | quantity | ISBNNO |
++--------+---------+----------+--------+
+| lost   | sakshi  |        3 |    547 |
+| air    | madhuri |        2 |    764 |
+| mind   | ishwari |        4 |    854 |
+| reason | rashmi  |        2 |    754 |
++--------+---------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create trigger t3
+    -> after insert on borrowedby
+    -> for each row
+    -> begin
+    -> update book
+    -> set quantity=quantity-1
+    -> where ISBNNO=ISBN;
+    -> end;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call t3;
+    -> //
+ERROR 1305 (42000): PROCEDURE students.t3 does not exist
+mysql> select * from borrowedby;
+    -> //
++--------+---------+----------+--------+
+| b_name | book    | quantity | ISBNNO |
++--------+---------+----------+--------+
+| lost   | sakshi  |        3 |    547 |
+| air    | madhuri |        2 |    764 |
+| mind   | ishwari |        4 |    854 |
+| reason | rashmi  |        2 |    754 |
++--------+---------+----------+--------+
+4 rows in set (0.01 sec)
+
+mysql>
+
+
+*************************************************************************************************************************************************
+14) write a trigger which will restrict insertion of new employee record having salary less than Rs. 20000.
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+37 rows in set (0.01 sec)
+
+mysql> use employee;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table employees(id int(55),name varchar(66),jobname varchar(77),hiredate int(67),salary int(88),depid int(46));
+Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
+mysql> insert into employees(id,name,jobname,hiredate,salary,depid) values(65776,'sakshi','developer',2024,30000,5321),(64789,'madhuri','designer',2023,18000,56483),(67899,'ishwari','manager',2025,29000,56980),(49075,'rashmi','employee',2026,13000,65598),(98582,'mayuri','HR',35000,2022,45839);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++-------+---------+-----------+----------+--------+-------+
+| id    | name    | jobname   | hiredate | salary | depid |
++-------+---------+-----------+----------+--------+-------+
+| 65776 | sakshi  | developer |     2024 |  30000 |  5321 |
+| 64789 | madhuri | designer  |     2023 |  18000 | 56483 |
+| 67899 | ishwari | manager   |     2025 |  29000 | 56980 |
+| 49075 | rashmi  | employee  |     2026 |  13000 | 65598 |
+| 98582 | mayuri  | HR        |    35000 |   2022 | 45839 |
++-------+---------+-----------+----------+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create trigger check_salary
+    -> before insert on employees
+    -> for each row
+    -> begin
+    -> if(NEW.salary<20000) then
+    -> signal sqlstate '02001' set message_text='You cannot insert salary<20000';
+    -> end if;
+    -> end;
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into employees values('65776','sakshi','developer','2024','29500','5321');
+    -> //
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
+    -> //
++-------+---------+-----------+----------+--------+-------+
+| id    | name    | jobname   | hiredate | salary | depid |
++-------+---------+-----------+----------+--------+-------+
+| 65776 | sakshi  | developer |     2024 |  30000 |  5321 |
+| 64789 | madhuri | designer  |     2023 |  18000 | 56483 |
+| 67899 | ishwari | manager   |     2025 |  29000 | 56980 |
+| 49075 | rashmi  | employee  |     2026 |  13000 | 65598 |
+| 98582 | mayuri  | HR        |    35000 |   2022 | 45839 |
+| 65776 | sakshi  | developer |     2024 |  29500 |  5321 |
++-------+---------+-----------+----------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employees values('66892','priya','designer','2018','19000','8912');
+    -> //
+ERROR 1643 (02001): You cannot insert salary<20000
+mysql>
+
+
+*************************************************************************************************************************************************
+15)  write a cursor which will update the salary of all employees as per following conditions:
+     -if salary>=75000 then increment salary by 5000
+     -if 50000<=salary<75000 then increment salary by 3000
+     -else then increment salary by 1500
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+36 rows in set (0.01 sec)
+
+mysql> create database company3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use company3;
+Database changed
+mysql> create table emp(eid int(66),ename varchar(44),sal int(45));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> insert into emp(eid,ename,sal) values(101,'sakshi',80000),(102,'madhuri',75000),(103,'neha',85000),(104,'rashmi',60000),(105,'ishwari',70000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++------+---------+-------+
+| eid  | ename   | sal   |
++------+---------+-------+
+|  101 | sakshi  | 80000 |
+|  102 | madhuri | 75000 |
+|  103 | neha    | 85000 |
+|  104 | rashmi  | 60000 |
+|  105 | ishwari | 70000 |
++------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table inc_sal(e_id int,sal int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc inc_sal;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| e_id  | int  | YES  |     | NULL    |       |
+| sal   | int  | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create procedure inc_emp_salary()
+    -> begin
+    -> declare eid int;
+    -> declare ename varchar(44);
+    -> declare salary int;
+    -> declare exit_loop Boolean;
+    -> declare e_cursor cursor for select eid,ename,salary from emp;
+    -> declare continue handler for not found set exit_loop=True;
+    -> open e_cursor;
+    -> emp_loop:loop
+    -> fetch e_cursor into eid,ename,salary;
+    -> if (salary>=75000) then set salary=salary+5000;
+    -> elseif(salary<75000 && salary>=75000) then set salary=salary+3000;
+    -> else
+    -> set salary=salary+1500;
+    -> end if;
+    -> if exit_loop then
+    -> close e_cursor;
+    -> leave emp_loop;
+    -> else
+    -> insert into inc_sal set e_id=eid,sal=salary;
+    -> end if;
+    -> end loop emp_loop;
+    -> end
+    -> //
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> call inc_emp_salary();
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from inc_sal;
+    -> //
++------+------+
+| e_id | sal  |
++------+------+
+| NULL | NULL |
+| NULL | NULL |	
+| NULL | NULL |
+| NULL | NULL |
+| NULL | NULL |
++------+------+
+5 rows in set (0.00 sec)
+****************************************************************************************************************************************************
+
+16)write a stored procedure using cursor to reduce price by 50 of 1st edition of all books and store ISBN,title and price in new table
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| sys                |
+| world              |
++--------------------+
+37 rows in set (0.01 sec)
+
+mysql> create database shop1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use shop1;
+Database changed
+mysql> create table books(name varchar(44),edition int(66),ISBN int(78),price int(68));
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_shop1 |
++-----------------+
+| books           |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> insert into books(name,edition,ISBN,price) values('life',1,666,600),('motivation',3,,444,700),('life',2,555,6700),('forget',1,456,5600);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',444,700),('life',2,555,6700),('forget',1,456,5600)' at line 1
+mysql> insert into books(name,edition,ISBN,price) values('life',1,666,600),('motivation',3,444,700),('life',2,555,6700),('forget',1,456,5600);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into books(name,edition,ISBN,price) values('distance',1,345,6600),('college',1,823,5500);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from books;
++------------+---------+------+-------+
+| name       | edition | ISBN | price |
++------------+---------+------+-------+
+| life       |       1 |  666 |   600 |
+| motivation |       3 |  444 |   700 |
+| life       |       2 |  555 |  6700 |
+| forget     |       1 |  456 |  5600 |
+| distance   |       1 |  345 |  6600 |
+| college    |       1 |  823 |  5500 |
++------------+---------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create table red_price(title varchar(65),ISBN int(65),price int(67));
+Query OK, 0 rows affected, 2 warnings (0.04 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_shop1 |
++-----------------+
+| books           |
+| red_price       |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc red_price;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| title | varchar(65) | YES  |     | NULL    |       |
+| ISBN  | int         | YES  |     | NULL    |       |
+| price | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> Delimiter //
+mysql> create procedure red_books_price()
+    -> begin
+    -> declare ISBN int;
+    -> declare name varchar(44);
+    -> declare edition int;
+    -> declare price int;
+    -> declare exit_loop Boolean;
+    -> declare e_cursor cursor for select ISBN,edition,name,price from books;
+    -> declare continue handler for not found set exit_loop=True;
+    -> open e_cursor;
+    -> books_loop:loop
+    -> fetch e_cursor into ISBN,edition,name,price;
+    -> if(edition=1)then set price=price-50;
+    -> else
+    -> set price=price;
+    -> end if;
+    -> if exit_loop then
+    -> close e_cursor;
+    -> leave books_loop;
+    -> else
+    -> insert into red_price values(title,ISBN,price);
+    -> end if;
+    -> end loop books_loop;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call red_books_price();
+    -> //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from red_price;
+    -> //
++-------+------+-------+
+| title | ISBN | price |
++-------+------+-------+
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
+| NULL  | NULL |  NULL |
++-------+------+-------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+****************************************************************************************************************************************************
+18)
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| bank1              |
+| clg                |
+| college            |
+| comp1              |
+| company            |
+| company1           |
+| company2           |
+| company3           |
+| customers          |
+| customers1         |
+| department         |
+| emp                |
+| emp1               |
+| employee           |
+| employee1          |
+| employee_pay       |
+| employees          |
+| faculty            |
+| hospital           |
+| hostel             |
+| hostel2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| school             |
+| school1            |
+| school2            |
+| shop               |
+| shop1              |
+| stud               |
+| stud1              |
+| stud2              |
+| student            |
+| student1           |
+| student2           |
+| students           |
+| sys                |
+| workers            |
+| world              |
++--------------------+
+41 rows in set (0.00 sec)
+
+mysql> use employee_pay;
+Database changed
+mysql> select * from employee;
++--------+-----------+
+| emp_id | emp_name  |
++--------+-----------+
+|      1 | sakshi    |
+|      2 | madhuri   |
+|      3 | ishwari   |
+|      4 | rashmi    |
+|      5 | mayuri    |
+|      6 | kasturi   |
+|      7 | vaishnavi |
+|      8 | raj       |
+|      9 | shyamal   |
++--------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> insert into department(dept_id,dept_name) values(1,'IT'),(2,'IT'),(3,'CS'),(4,'E&TC');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into department(dept_id,dept_name) values(5,'CIVIL'),(11,'CIVIL'),(12,'MECHANICAL');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into department(dept_id,dept_name) values(13,'CS'),(14,'IT'),(15,'E&TC');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------+------------+
+| dept_id | dept_name  |
++---------+------------+
+|       1 | IT         |
+|       2 | IT         |
+|       3 | CS         |
+|       4 | E&TC       |
+|       5 | CIVIL      |
+|       1 | IT         |
+|       2 | IT         |
+|       3 | CS         |
+|       4 | E&TC       |
+|       5 | CIVIL      |
+|      11 | CIVIL      |
+|      12 | MECHANICAL |
+|      13 | CS         |
+|      14 | IT         |
+|      15 | E&TC       |
++---------+------------+
+15 rows in set (0.00 sec)
+
+mysql> create table paydetails(emp_id int(56),dept_id int(57),basic int(47),deduction int(58),additions int(57),DOJ date);
+Query OK, 0 rows affected, 5 warnings (0.03 sec)
+
+mysql> insert into paydetails(emp_id,dept_id,basic,deduction,additions,DOJ) values(1,1,25000,5000,2000,'2022-05-23'),(2,2,40000,6000,3000,'2020-05-24'),(3,3,54000,10000,2000,'2019-04-29');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into paydetails(emp_id,dept_id,basic,deduction,additions,DOJ) values(4,4,72000,7000,35000,'2023-09-19'),(5,5,65000,5000,23000,'2020-01-25'),(5,5,80000,14000,70000,'2018-09-30'),(6,11,45000,2000,6000,'2017-05-07');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into paydetails(emp_id,dept_id,basic,deduction,additions,DOJ) values(7,12,67000,5000,7000,'2022-05-07'),(8,13,90000,7000,9000,'2023-08-23'),(9,14,87000,5000,2000,'2022-04-5');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from paydetails;
++--------+---------+-------+-----------+-----------+------------+
+| emp_id | dept_id | basic | deduction | additions | DOJ        |
++--------+---------+-------+-----------+-----------+------------+
+|      1 |       1 | 25000 |      5000 |      2000 | 2022-05-23 |
+|      2 |       2 | 40000 |      6000 |      3000 | 2020-05-24 |
+|      3 |       3 | 54000 |     10000 |      2000 | 2019-04-29 |
+|      4 |       4 | 72000 |      7000 |     35000 | 2023-09-19 |
+|      5 |       5 | 65000 |      5000 |     23000 | 2020-01-25 |
+|      5 |       5 | 80000 |     14000 |     70000 | 2018-09-30 |
+|      6 |      11 | 45000 |      2000 |      6000 | 2017-05-07 |
+|      7 |      12 | 67000 |      5000 |      7000 | 2022-05-07 |
+|      8 |      13 | 90000 |      7000 |      9000 | 2023-08-23 |
+|      9 |      14 | 87000 |      5000 |      2000 | 2022-04-05 |
++--------+---------+-------+-----------+-----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> create table payroll(emp_id int(56),pay_date date);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> insert into payroll(emp_id,pay_date) values(1,'2022-09-03'),(2,'2020-03-23'),(3,'2019-02-24'),(4,'2022-04-19'),(2024-09-19'),
+    '> insert into payroll(emp_id,pay_date) values(1,'2022-09-03'),(2,'2020-03-23'),(3,'2019-02-24'),(4,'2022-04-19'),(2024-09-19');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''),
+insert into payroll(emp_id,pay_date) values(1,'2022-09-03'),(2,'2020-03-23'' at line 1
+mysql> insert into payroll(emp_id,pay_date) values(1,'2022-09-03'),(2,'2020-03-23'),(3,'2019-02-24'),(4,'2022-04-19'),(5,'2024-09-19');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into payroll(emp_id,pay_date) values(6,'2023-03-04'),(7,'2022-09-30'),(8,'2023-09-03'),(9,'2027-12-15');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from payroll;
++--------+------------+
+| emp_id | pay_date   |
++--------+------------+
+|      1 | 2022-09-03 |
+|      2 | 2020-03-23 |
+|      3 | 2019-02-24 |
+|      4 | 2022-04-19 |
+|      5 | 2024-09-19 |
+|      6 | 2023-03-04 |
+|      7 | 2022-09-30 |
+|      8 | 2023-09-03 |
+|      9 | 2027-12-15 |
++--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select e.emp_id,e.emp_name,d.dept_id,d.dept_name,pd.DOJ,pd.basic from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.emp_id and d.dept_id=pd.dept_id and e.emp_id=pr.emp_id;
++--------+-----------+---------+------------+------------+-------+
+| emp_id | emp_name  | dept_id | dept_name  | DOJ        | basic |
++--------+-----------+---------+------------+------------+-------+
+|      1 | sakshi    |       1 | IT         | 2022-05-23 | 25000 |
+|      2 | madhuri   |       2 | IT         | 2020-05-24 | 40000 |
+|      3 | ishwari   |       3 | CS         | 2019-04-29 | 54000 |
+|      4 | rashmi    |       4 | E&TC       | 2023-09-19 | 72000 |
+|      5 | mayuri    |       5 | CIVIL      | 2018-09-30 | 80000 |
+|      5 | mayuri    |       5 | CIVIL      | 2020-01-25 | 65000 |
+|      1 | sakshi    |       1 | IT         | 2022-05-23 | 25000 |
+|      2 | madhuri   |       2 | IT         | 2020-05-24 | 40000 |
+|      3 | ishwari   |       3 | CS         | 2019-04-29 | 54000 |
+|      4 | rashmi    |       4 | E&TC       | 2023-09-19 | 72000 |
+|      5 | mayuri    |       5 | CIVIL      | 2018-09-30 | 80000 |
+|      5 | mayuri    |       5 | CIVIL      | 2020-01-25 | 65000 |
+|      6 | kasturi   |      11 | CIVIL      | 2017-05-07 | 45000 |
+|      7 | vaishnavi |      12 | MECHANICAL | 2022-05-07 | 67000 |
+|      8 | raj       |      13 | CS         | 2023-08-23 | 90000 |
+|      9 | shyamal   |      14 | IT         | 2022-04-05 | 87000 |
++--------+-----------+---------+------------+------------+-------+
+16 rows in set (0.00 sec)
+
+mysql> select emp_name from employee e,paydetails pd where e.emp_id and pd.DOJ>="2020-01-25";
++-----------+
+| emp_name  |
++-----------+
+| sakshi    |
+| sakshi    |
+| sakshi    |
+| sakshi    |
+| sakshi    |
+| sakshi    |
+| sakshi    |
+| madhuri   |
+| madhuri   |
+| madhuri   |
+| madhuri   |
+| madhuri   |
+| madhuri   |
+| madhuri   |
+| ishwari   |
+| ishwari   |
+| ishwari   |
+| ishwari   |
+| ishwari   |
+| ishwari   |
+| ishwari   |
+| rashmi    |
+| rashmi    |
+| rashmi    |
+| rashmi    |
+| rashmi    |
+| rashmi    |
+| rashmi    |
+| mayuri    |
+| mayuri    |
+| mayuri    |
+| mayuri    |
+| mayuri    |
+| mayuri    |
+| mayuri    |
+| kasturi   |
+| kasturi   |
+| kasturi   |
+| kasturi   |
+| kasturi   |
+| kasturi   |
+| kasturi   |
+| vaishnavi |
+| vaishnavi |
+| vaishnavi |
+| vaishnavi |
+| vaishnavi |
+| vaishnavi |
+| vaishnavi |
+| raj       |
+| raj       |
+| raj       |
+| raj       |
+| raj       |
+| raj       |
+| raj       |
+| shyamal   |
+| shyamal   |
+| shyamal   |
+| shyamal   |
+| shyamal   |
+| shyamal   |
+| shyamal   |
++-----------+
+63 rows in set (0.01 sec)
+
+mysql> select e.emp_id,e.emp_name,d.dept_id,d.dept_name,pd.basic from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.emp_id and d.dept_id=pd.dept_id and e.emp_id=pr.emp_id;
++--------+-----------+---------+------------+-------+
+| emp_id | emp_name  | dept_id | dept_name  | basic |
++--------+-----------+---------+------------+-------+
+|      1 | sakshi    |       1 | IT         | 25000 |
+|      2 | madhuri   |       2 | IT         | 40000 |
+|      3 | ishwari   |       3 | CS         | 54000 |
+|      4 | rashmi    |       4 | E&TC       | 72000 |
+|      5 | mayuri    |       5 | CIVIL      | 80000 |
+|      5 | mayuri    |       5 | CIVIL      | 65000 |
+|      1 | sakshi    |       1 | IT         | 25000 |
+|      2 | madhuri   |       2 | IT         | 40000 |
+|      3 | ishwari   |       3 | CS         | 54000 |
+|      4 | rashmi    |       4 | E&TC       | 72000 |
+|      5 | mayuri    |       5 | CIVIL      | 80000 |
+|      5 | mayuri    |       5 | CIVIL      | 65000 |
+|      6 | kasturi   |      11 | CIVIL      | 45000 |
+|      7 | vaishnavi |      12 | MECHANICAL | 67000 |
+|      8 | raj       |      13 | CS         | 90000 |
+|      9 | shyamal   |      14 | IT         | 87000 |
++--------+-----------+---------+------------+-------+
+16 rows in set (0.00 sec)
+
+mysql>
+
+************************************************************************************************************************************************
+19)
+
+mysql> update paydetails set basic=11000 where em_id=3;
+ERROR 1054 (42S22): Unknown column 'em_id' in 'where clause'
+mysql> update paydetails set basic=11000 where emp_id=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update paydetails set basic=21000 where emp_id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update paydetails set basic=2100 where emp_id=5;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from paydetails;
++--------+---------+-------+-----------+-----------+------------+
+| emp_id | dept_id | basic | deduction | additions | DOJ        |
++--------+---------+-------+-----------+-----------+------------+
+|      1 |       1 | 25000 |      5000 |      2000 | 2022-05-23 |
+|      2 |       2 | 40000 |      6000 |      3000 | 2020-05-24 |
+|      3 |       3 | 11000 |     10000 |      2000 | 2019-04-29 |
+|      4 |       4 | 21000 |      7000 |     35000 | 2023-09-19 |
+|      5 |       5 |  2100 |      5000 |     23000 | 2020-01-25 |
+|      5 |       5 |  2100 |     14000 |     70000 | 2018-09-30 |
+|      6 |      11 | 45000 |      2000 |      6000 | 2017-05-07 |
+|      7 |      12 | 67000 |      5000 |      7000 | 2022-05-07 |
+|      8 |      13 | 90000 |      7000 |      9000 | 2023-08-23 |
+|      9 |      14 | 87000 |      5000 |      2000 | 2022-04-05 |
++--------+---------+-------+-----------+-----------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from department group by dept_name;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        3 |
+|        3 |
+|        3 |
+|        1 |
++----------+
+5 rows in set (0.00 sec)
+
+mysql> select emp_name from employee where emp_id in(select emp_id from paydetails where basic+addition-deduction>10000);
+ERROR 1054 (42S22): Unknown column 'addition' in 'where clause'
+mysql> select emp_name from employee where emp_id in(select emp_id from paydetails where basic+additions-deduction>10000);
++-----------+
+| emp_name  |
++-----------+
+| sakshi    |
+| madhuri   |
+| rashmi    |
+| mayuri    |
+| kasturi   |
+| vaishnavi |
+| raj       |
+| shyamal   |
++-----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee where emp_id=5;
++--------+----------+
+| emp_id | emp_name |
++--------+----------+
+|      5 | mayuri   |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> create view  emp_pay as select e.emp_name,d.department,pd.basic,pd.deduction,(pd.basic+pd.additions-pd.deduction) net salary from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.emp_id and d.dept_id=pd.dept_id and e.emp_id=pr.emp-id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.e' at line 1
+mysql> create view  emp_pay as select e.emp_name,d.department,pd.basic,pd.deduction,(pd.basic+pd.additions-pd.deduction) net salary from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.emp_id and d.dept_id=pd.dept_id and e.emp_id=pr.emp_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.e' at line 1
+mysql> create view  emp_pay as select e.emp_name,d.department,pd.basic,pd.deduction,(pd.basic+pd.additions-pd.deduction) netsalary from employee e,department d,paydetails pd,payroll pr where e.emp_id=pd.emp_id and d.dept_id=pd.dept_id and e.emp_id=pr.emp_id;
+ERROR 1054 (42S22): Unknown column 'd.department' in 'field list'
+mysql>
+
+
